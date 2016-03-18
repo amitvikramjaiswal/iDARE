@@ -1,7 +1,11 @@
 <resources>
     <string name="app_name">iDARE</string>
-    <string name="drawer_open">Open navigation drawer</string>
-    <string name="drawer_close">Close navigation drawer</string>
+
     <string name="make_passive">Make Passive</string>
     <string name="passive_mode_description">Passive mode disables location services in this app to conserve battery.</string>
+    <string name="passive_mode_message">Your security app is in Passive mode and will need to be active to send realtime location details</string>
+    <string name="welcome_title">Welcome <b>%1$s</b></string>
+    <string name="make_active_btn_help">Once active, you can alert othersof your situation and location to get timely help.</string>
+    <string name="active_mode_message">Your security app is in Active mode. Shake the phone or use the button to alert others in case of emergency.</string>
+    <string name="call_nearest_police_station">Call nearest police station</string>
 </resources>

@@ -2,21 +2,28 @@ package com.opensource.app.idare.view.activities;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ExpandableListView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.opensource.app.idare.R;
 import com.opensource.app.idare.view.views.BaseView;
 
 /**
  * Created by ajaiswal on 3/15/2016.
  */
-public class BaseActivity extends AppCompatActivity implements BaseView {
+public abstract class BaseActivity extends AppCompatActivity implements BaseView {
 
     private static final String TAG = "BaseActivity";
     private ProgressDialog mProgressDialog;
@@ -24,6 +31,31 @@ public class BaseActivity extends AppCompatActivity implements BaseView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setHomeButtonEnabled(true);
+            getSupportActionBar().setDisplayShowTitleEnabled(true);
+        }
+
+       /* Change the statusBar color if the version is above Lollipop,Because this feature implemented in API 21*/
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
+
+        onBaseActivityCreate(savedInstanceState);
+        setProgressBarIndeterminateVisibility(false);
+
+    }
+
+    /**
+     * Use this function instead of onCreate to implement functionality.
+     *
+     * @param savedInstanceState The saved instance state.
+     */
+    protected void onBaseActivityCreate(Bundle savedInstanceState) {
+
     }
 
     @Override

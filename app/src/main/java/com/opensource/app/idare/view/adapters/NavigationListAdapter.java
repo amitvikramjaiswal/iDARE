@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.opensource.app.idare.R;
@@ -22,6 +23,8 @@ public class NavigationListAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
     private ImageView mNavigationImage;
     private TextView mNavigationItem;
+    private LinearLayout mUpperSectionLL;
+    private LinearLayout mLowerSectionLL;
 
     public NavigationListAdapter(Context mContext, String[] mNavigationItems, int[] mNavigationImages) {
         this.mContext = mContext;
@@ -51,8 +54,10 @@ public class NavigationListAdapter extends BaseAdapter {
             convertView = mInflater.inflate(R.layout.layout_drawer_item, null);
         }
 
-        mNavigationItem = (TextView)convertView.findViewById(R.id.tv_navigation_item);
-        mNavigationImage = (ImageView)convertView.findViewById(R.id.iv_navigation_image);
+        mUpperSectionLL = (LinearLayout) convertView.findViewById(R.id.ll_iv_tv);
+        mLowerSectionLL = (LinearLayout) convertView.findViewById(R.id.ll_btn_tv);
+        mNavigationItem = (TextView) convertView.findViewById(R.id.tv_navigation_item);
+        mNavigationImage = (ImageView) convertView.findViewById(R.id.iv_navigation_image);
 
         mNavigationItem.setText(mNavigationItems[position]);
 //        mNavigationImage.setImageResource(mNavigationImages[position]);

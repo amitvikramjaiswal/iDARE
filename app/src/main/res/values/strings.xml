@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">iDARE</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="make_passive">Make Passive</string>
+    <string name="passive_mode_description">Passive mode disables location services in this app to conserve battery.</string>
 </resources>

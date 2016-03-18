@@ -3,6 +3,8 @@ package com.opensource.app.idare.application;
 import android.content.Context;
 import android.support.multidex.MultiDexApplication;
 
+import com.opensource.app.idare.util.log.Logger;
+
 /**
  * Created by ajaiswal on 3/16/2016.
  */
@@ -15,6 +17,17 @@ public class IDareApp extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
         setContext(getApplicationContext());
+
+        final Thread.UncaughtExceptionHandler handler = Thread.getDefaultUncaughtExceptionHandler();
+        Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+            @Override
+            public void uncaughtException(Thread thread, Throwable ex) {
+                Logger.e("UNCAUGHT EXCEPTION", thread.toString());
+                Logger.e("UNCAUGHT EXCEPTION", ex);
+                // chain this so the app ends correctly
+                handler.uncaughtException(thread, ex);
+            }
+        });
 
     }
 

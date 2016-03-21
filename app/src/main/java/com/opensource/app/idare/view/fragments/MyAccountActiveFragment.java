@@ -66,10 +66,10 @@ public class MyAccountActiveFragment extends BaseFragment implements View.OnClic
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_call_nearest_police_station:
-                mMainActivity.popFragment();
+
                 break;
             case R.id.btn_alert:
-                mMainActivity.popFragment();
+
                 break;
             default:
                 break;

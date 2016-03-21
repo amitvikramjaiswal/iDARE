@@ -1,11 +1,19 @@
 package com.opensource.app.idare.view.activities;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AlertDialog;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 
 import com.opensource.app.idare.R;
 import com.opensource.app.idare.presenter.impl.MainPresenterImpl;
@@ -29,6 +37,7 @@ public class MainActivity extends BaseActivity implements MainView, NavigationDr
         mTitles = getStringArray(R.array.arr_nav_titles);
         setContentView(R.layout.activity_main);
         findViews();
+        addListeners();
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
 
@@ -40,7 +49,11 @@ public class MainActivity extends BaseActivity implements MainView, NavigationDr
         mainPresenter = new MainPresenterImpl(this);
     }
 
-    private void findViews() {
+    public void addListeners() {
+        btnMakePassive.setOnClickListener(this);
+    }
+
+    public void findViews() {
         btnMakePassive = (Button) findViewById(R.id.btn_make_passive);
     }
 
@@ -84,17 +97,21 @@ public class MainActivity extends BaseActivity implements MainView, NavigationDr
                 .commit();
     }
 
-    public void popFragment() {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.popBackStack();
-    }
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_make_passive:
-                popFragment();
+                showMakePassivePopUp();
                 break;
         }
+    }
+
+    public void showMakePassivePopUp() {
+        mNavigationDrawerFragment.hideDrawer();
+        View popupView = getLayoutInflater().inflate(R.layout.layout_popup_view, null);
+        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        alertDialog.setView(popupView);
+        alertDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        alertDialog.show();
     }
 }

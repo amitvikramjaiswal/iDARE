@@ -1,5 +1,7 @@
 package com.opensource.app.idare.presenter.impl;
 
+import android.support.v4.app.Fragment;
+
 import com.opensource.app.idare.presenter.presenters.MainPresenter;
 import com.opensource.app.idare.view.views.MainView;
 
@@ -12,5 +14,11 @@ public class MainPresenterImpl implements MainPresenter {
 
     public MainPresenterImpl(MainView mainView) {
         this.mainView = mainView;
+    }
+
+
+    @Override
+    public void replaceFragment(Fragment fragment) {
+        mainView.replaceFragment(fragment);
     }
 }

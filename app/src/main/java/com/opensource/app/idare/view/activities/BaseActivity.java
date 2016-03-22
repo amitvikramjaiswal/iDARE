@@ -2,15 +2,20 @@ package com.opensource.app.idare.view.activities;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Spanned;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
@@ -18,6 +23,7 @@ import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.opensource.app.idare.R;
+import com.opensource.app.idare.service.handlers.AlertDialogHandler;
 import com.opensource.app.idare.view.views.BaseView;
 
 /**
@@ -103,6 +109,52 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
     }
 
     @Override
+    public void showAlertDialog(String title, String message, String positiveButton, String negativeButton, final AlertDialogHandler alertDialogHandler) {
+        AlertDialog.Builder myAlertDialog = new AlertDialog.Builder(this);
+
+        if (title != null) {
+            myAlertDialog.setTitle(title);
+        }
+
+        if (message != null) {
+            myAlertDialog.setMessage(message);
+        }
+
+        if (positiveButton != null) {
+            myAlertDialog.setPositiveButton(positiveButton, new DialogInterface.OnClickListener() {
+
+                public void onClick(DialogInterface arg0, int arg1) {
+                    if (alertDialogHandler != null) {
+                        alertDialogHandler.onPositiveButtonClicked();
+                    }
+                }
+            });
+        }
+
+        if (negativeButton != null) {
+            myAlertDialog.setNegativeButton(negativeButton, new DialogInterface.OnClickListener() {
+
+                public void onClick(DialogInterface arg0, int arg1) {
+                    if (alertDialogHandler != null) {
+                        alertDialogHandler.onNegativeButtonClicked();
+                    }
+                }
+            });
+            myAlertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+
+                @Override
+                public void onCancel(DialogInterface dialog) {
+                    alertDialogHandler.onNegativeButtonClicked();
+                }
+            });
+        } else {
+            myAlertDialog.setCancelable(false);
+        }
+
+        myAlertDialog.show();
+    }
+
+    @Override
     public void hideKeyBoard() {
         InputMethodManager inputMethodManager = (InputMethodManager) this
                 .getSystemService(INPUT_METHOD_SERVICE);
@@ -113,5 +165,10 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
                 inputMethodManager.hideSoftInputFromWindow(windowToken, 0);
             }
         }
+    }
+
+    public void shakeView(View view) {
+        Animation shake = AnimationUtils.loadAnimation(this, R.anim.shake);
+        view.startAnimation(shake);
     }
 }

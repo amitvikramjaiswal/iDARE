@@ -1,7 +1,8 @@
 package com.opensource.app.idare.view.views;
 
-import android.os.Bundle;
-import android.text.Spanned;
+import android.view.View;
+
+import com.opensource.app.idare.service.handlers.AlertDialogHandler;
 
 /**
  * Created by ajaiswal on 3/15/2016.
@@ -40,9 +41,11 @@ public interface BaseView {
      * Gets a string from app resources.
      *
      * @param stringResourceId The string resource id.
+     * @param formatArgs The format arguments that will be used for
+     *                         substitution.
      * @return The string.
      */
-    String getString(int stringResourceId);
+    String getString(int stringResourceId, Object... formatArgs);
 
     /**
      * Gets a string array from app resources.
@@ -70,16 +73,13 @@ public interface BaseView {
     /**
      * Shows an alert dialog to prompt the user.
      *
-     * @param title                  The title of the dialog, optional.
-     * @param message                The message for the dialog.
-     * @param itemlabels             If multiple choice, the item labels.
-     * @param checkItemLabelsChecked If multiple choice, the checked state of each item.
-     * @param positiveButton         The positive button (optional).
-     * @param negativeButton         The negative button (optional).
-     * @param alertDialogHandler     The dialog handler for button clicks.
+     * @param title              The title of the dialog, optional.
+     * @param message            The message for the dialog.
+     * @param positiveButton     The positive button (optional).
+     * @param negativeButton     The negative button (optional).
+     * @param alertDialogHandler The dialog handler for button clicks.
      */
-//    void showAlertDialog(String title, String message, Spanned[] itemlabels, boolean[] checkItemLabelsChecked, String positiveButton,
-//                         String negativeButton, AlertDialogHandler alertDialogHandler);
+    void showAlertDialog(String title, String message, String positiveButton, String negativeButton, AlertDialogHandler alertDialogHandler);
 
     /**
      * Shows a progress dialog in the center of the screen.
@@ -94,5 +94,7 @@ public interface BaseView {
     void hideProgressDialog();
 
     void hideKeyBoard();
+
+    void shakeView(View view);
 
 }

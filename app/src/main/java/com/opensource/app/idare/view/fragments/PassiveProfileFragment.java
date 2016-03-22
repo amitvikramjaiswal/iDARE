@@ -18,9 +18,9 @@ import com.opensource.app.idare.view.activities.MainActivity;
 /**
  * Created by ajaiswal on 3/18/2016.
  */
-public class MyAccountPassiveFragment extends BaseFragment implements View.OnClickListener {
+public class PassiveProfileFragment extends BaseFragment implements View.OnClickListener {
 
-    private static final String TAG = "MyAccountPassiveFragment";
+    private static final String TAG = "PassiveProfileFragment";
     private MainActivity mMainActivity;
     private Context mContext;
     private TextView tvWelcomeTitle;
@@ -72,7 +72,7 @@ public class MyAccountPassiveFragment extends BaseFragment implements View.OnCli
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_make_active:
-                mMainActivity.replaceFragment(new MyAccountActiveFragment());
+                mMainActivity.replaceFragment(new ActiveProfileFragment());
                 break;
             default:
                 break;

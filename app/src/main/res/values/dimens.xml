@@ -17,4 +17,6 @@
     <dimen name="font_size_small_minus_1">12sp</dimen>
     <dimen name="padding_popup">50dp</dimen>
     <dimen name="margin_linear_layout_elements">30dp</dimen>
+    <dimen name="pin_width">30dp</dimen>
+    <dimen name="pin_height">50dp</dimen>
 </resources>

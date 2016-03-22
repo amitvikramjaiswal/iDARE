@@ -14,9 +14,9 @@ import com.opensource.app.idare.view.activities.MainActivity;
 /**
  * Created by ajaiswal on 3/18/2016.
  */
-public class MyAccountActiveFragment extends BaseFragment implements View.OnClickListener {
+public class ActiveProfileFragment extends BaseFragment implements View.OnClickListener {
 
-    private static final String TAG = "MyAccountActiveFragment";
+    private static final String TAG = "ActiveProfileFragment";
     private MainActivity mMainActivity;
     private Context mContext;
     private Button btnAlert;

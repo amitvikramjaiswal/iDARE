@@ -1,25 +1,19 @@
 package com.opensource.app.idare.view.activities;
 
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 
 import com.opensource.app.idare.R;
 import com.opensource.app.idare.presenter.impl.MainPresenterImpl;
 import com.opensource.app.idare.presenter.presenters.MainPresenter;
-import com.opensource.app.idare.view.fragments.MyAccountPassiveFragment;
 import com.opensource.app.idare.view.fragments.NavigationDrawerFragment;
+import com.opensource.app.idare.view.fragments.PassiveProfileFragment;
 import com.opensource.app.idare.view.views.MainView;
 
 public class MainActivity extends BaseActivity implements MainView, NavigationDrawerFragment.NavigationDrawerCallbacks, View.OnClickListener {
@@ -36,16 +30,12 @@ public class MainActivity extends BaseActivity implements MainView, NavigationDr
         super.onBaseActivityCreate(savedInstanceState);
         mTitles = getStringArray(R.array.arr_nav_titles);
         setContentView(R.layout.activity_main);
-        findViews();
-        addListeners();
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
-
         // Set up the drawer.
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
-
         mainPresenter = new MainPresenterImpl(this);
     }
 
@@ -65,7 +55,7 @@ public class MainActivity extends BaseActivity implements MainView, NavigationDr
         switch (position) {
 
             case 0:
-                fragment = new MyAccountPassiveFragment();
+                fragment = new PassiveProfileFragment();
                 break;
             case 1:
                 break;
@@ -103,12 +93,20 @@ public class MainActivity extends BaseActivity implements MainView, NavigationDr
             case R.id.btn_make_passive:
                 showMakePassivePopUp();
                 break;
+            case R.id.btn_make_passive_confirm:
+                mainPresenter.replaceFragment(new PassiveProfileFragment());
+                break;
         }
     }
 
+    @Override
     public void showMakePassivePopUp() {
         mNavigationDrawerFragment.hideDrawer();
+
         View popupView = getLayoutInflater().inflate(R.layout.layout_popup_view, null);
+        Button button = (Button) popupView.findViewById(R.id.btn_make_passive_confirm);
+        button.setOnClickListener(this);
+
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
         alertDialog.setView(popupView);
         alertDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);

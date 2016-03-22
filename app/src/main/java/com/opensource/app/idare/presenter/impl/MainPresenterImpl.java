@@ -14,6 +14,8 @@ public class MainPresenterImpl implements MainPresenter {
 
     public MainPresenterImpl(MainView mainView) {
         this.mainView = mainView;
+        this.mainView.findViews();
+        this.mainView.addListeners();
     }
 
 

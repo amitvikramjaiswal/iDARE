@@ -12,16 +12,24 @@ import android.widget.Button;
 import com.opensource.app.idare.R;
 import com.opensource.app.idare.presenter.impl.MainPresenterImpl;
 import com.opensource.app.idare.presenter.presenters.MainPresenter;
+import com.opensource.app.idare.util.Utility;
+import com.opensource.app.idare.util.log.Logger;
 import com.opensource.app.idare.view.fragments.NavigationDrawerFragment;
 import com.opensource.app.idare.view.fragments.PassiveProfileFragment;
 import com.opensource.app.idare.view.views.MainView;
 
 public class MainActivity extends BaseActivity implements MainView, NavigationDrawerFragment.NavigationDrawerCallbacks, View.OnClickListener {
 
+    private static final String TAG = "MainActivity";
     MainPresenter mainPresenter;
     private NavigationDrawerFragment mNavigationDrawerFragment;
     private CharSequence mTitle;
     private String[] mTitles;
+    private AlertDialog alertDialog;
+    private String backStateName;
+    private boolean fragmentPopped;
+    private FragmentManager.BackStackEntry backStackEntry;
+    private FragmentManager fragmentManager;
 
     private Button btnMakePassive;
 
@@ -29,6 +37,7 @@ public class MainActivity extends BaseActivity implements MainView, NavigationDr
     protected void onBaseActivityCreate(Bundle savedInstanceState) {
         super.onBaseActivityCreate(savedInstanceState);
         mTitles = getStringArray(R.array.arr_nav_titles);
+        fragmentManager = getSupportFragmentManager();
         setContentView(R.layout.activity_main);
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
@@ -81,10 +90,44 @@ public class MainActivity extends BaseActivity implements MainView, NavigationDr
 
     //Method to replace the Fragment
     public void replaceFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, fragment)
-                .commit();
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//        fragmentManager.beginTransaction()
+//                .replace(R.id.container, fragment)
+//                .commit();
+
+        hideKeyboard();
+        backStateName = fragment.getClass().getName();
+        try {
+            fragmentPopped = fragmentManager.popBackStackImmediate(backStateName, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        } catch (IllegalStateException e) {
+            Logger.e(TAG, "CAN BE IGNORED", e);
+            fragmentPopped = false;
+        }
+
+
+        if (!fragmentPopped) {
+            getSupportFragmentManager().beginTransaction().add(R.id.container, fragment)
+                    // Add this transaction to the back stack
+                    .addToBackStack(backStateName).commitAllowingStateLoss();
+        } else {
+            getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment)
+                    // Add this transaction to the back stack
+                    .addToBackStack(backStateName).commitAllowingStateLoss();
+        }
+        fragmentManager.addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+            @Override
+            public void onBackStackChanged() {
+                setTitleFromBackStackEntry();
+            }
+        });
+
+    }
+
+    public void setTitleFromBackStackEntry() {
+        if (fragmentManager.getBackStackEntryCount() > Utility.ZERO_ELEMENTS_IN_STACK) {
+            backStackEntry = fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount() - 1);
+            setTitle(backStackEntry.getName());
+        }
     }
 
     @Override
@@ -94,6 +137,8 @@ public class MainActivity extends BaseActivity implements MainView, NavigationDr
                 showMakePassivePopUp();
                 break;
             case R.id.btn_make_passive_confirm:
+                if (alertDialog != null)
+                    alertDialog.dismiss();
                 mainPresenter.replaceFragment(new PassiveProfileFragment());
                 break;
         }
@@ -107,7 +152,7 @@ public class MainActivity extends BaseActivity implements MainView, NavigationDr
         Button button = (Button) popupView.findViewById(R.id.btn_make_passive_confirm);
         button.setOnClickListener(this);
 
-        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        alertDialog = new AlertDialog.Builder(this).create();
         alertDialog.setView(popupView);
         alertDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         alertDialog.show();

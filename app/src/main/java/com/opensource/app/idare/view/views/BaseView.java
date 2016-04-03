@@ -93,7 +93,7 @@ public interface BaseView {
      */
     void hideProgressDialog();
 
-    void hideKeyBoard();
+    void hideKeyboard();
 
     void shakeView(View view);
 

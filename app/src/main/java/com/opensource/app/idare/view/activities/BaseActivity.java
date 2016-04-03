@@ -155,7 +155,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
     }
 
     @Override
-    public void hideKeyBoard() {
+    public void hideKeyboard() {
         InputMethodManager inputMethodManager = (InputMethodManager) this
                 .getSystemService(INPUT_METHOD_SERVICE);
         View currentFocus = this.getCurrentFocus();

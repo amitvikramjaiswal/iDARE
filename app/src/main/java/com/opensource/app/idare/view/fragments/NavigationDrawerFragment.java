@@ -23,6 +23,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.opensource.app.idare.R;
+import com.opensource.app.idare.util.Utils;
 import com.opensource.app.idare.view.activities.MainActivity;
 import com.opensource.app.idare.view.adapters.NavigationListAdapter;
 
@@ -119,6 +120,9 @@ public class NavigationDrawerFragment extends Fragment {
         });
 
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
+
+        Utils.setListViewHeightBasedOnChildren(mDrawerListView);
+
         return rootView;
     }
 
@@ -150,7 +154,7 @@ public class NavigationDrawerFragment extends Fragment {
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-                ((MainActivity)getActivity()).hideKeyBoard();
+                ((MainActivity)getActivity()).hideKeyboard();
             }
         };
 

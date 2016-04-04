@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.opensource.app.idare">
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -13,7 +14,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".view.activities.RegisterActivity"
+            android:name=".view.activities.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,8 +24,21 @@
         </activity>
 
         <activity
+            android:name=".view.activities.RegisterActivity"
+            android:screenOrientation="portrait" />
+
+
+        <activity
             android:name=".view.activities.MainActivity"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".view.activities.NearBySafeHouseActivity"
+            android:screenOrientation="portrait" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_map_api_key" />
 
         <meta-data
             android:name="io.fabric.ApiKey"

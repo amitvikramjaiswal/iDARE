@@ -79,6 +79,7 @@ public class RegisterActivity extends BaseActivity implements RegisterView, View
     @Override
     public void onVerifyClick() {
         finish();
+        registerPresenter.saveUserData();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }

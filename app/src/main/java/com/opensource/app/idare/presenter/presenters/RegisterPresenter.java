@@ -10,5 +10,7 @@ public interface RegisterPresenter {
     void onSendVerificationClick(EditText phoneNumber);
 
     void onVerifyClick(EditText otp);
+
+    void saveUserData();
     
 }

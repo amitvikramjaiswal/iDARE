@@ -9,4 +9,5 @@ public interface MainPresenter {
 
     void replaceFragment(Fragment fragment);
 
+    void logout();
 }

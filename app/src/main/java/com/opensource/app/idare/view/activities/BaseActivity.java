@@ -2,7 +2,9 @@ package com.opensource.app.idare.view.activities;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -33,6 +35,13 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
 
     private static final String TAG = "BaseActivity";
     private ProgressDialog mProgressDialog;
+    private SharedPreferences preferences;
+    private static final String PREF_KEY = "com.opensource.app.idare.PREF_KEY";
+
+    @Override
+    public SharedPreferences getPreferences() {
+        return preferences;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +61,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
 
         onBaseActivityCreate(savedInstanceState);
         setProgressBarIndeterminateVisibility(false);
+        preferences = getSharedPreferences(PREF_KEY, Context.MODE_PRIVATE);
 
     }
 

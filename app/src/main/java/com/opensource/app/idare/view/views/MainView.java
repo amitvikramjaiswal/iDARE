@@ -13,4 +13,6 @@ public interface MainView extends BaseView {
     void replaceFragment(Fragment fragment);
 
     void showMakePassivePopUp();
+
+    void relaunch();
 }

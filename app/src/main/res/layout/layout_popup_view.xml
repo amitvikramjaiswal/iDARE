@@ -2,10 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     android:background="@color/colorPrimary"
-    android:padding="@dimen/padding_popup"
-    android:orientation="vertical">
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="@dimen/padding_popup">
 
     <EditText
         android:id="@+id/et_passcode"
@@ -15,18 +15,21 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/enter_passcode_to_make_passive"/>
+        android:text="@string/enter_passcode_to_make_passive"
+        android:textAlignment="center" />
 
     <Button
         android:id="@+id/btn_make_passive_confirm"
+        style="@style/btn_make_passive"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/idare_white"
-        style="@style/btn_make_passive"/>
+        android:layout_marginTop="@dimen/margin_linear_layout_elements"
+        android:backgroundTint="@color/idare_white" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/forgot_passcode"/>
+        android:layout_marginTop="@dimen/margin_linear_layout_elements"
+        android:text="@string/forgot_passcode" />
 
 </LinearLayout>

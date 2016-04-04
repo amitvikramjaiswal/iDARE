@@ -23,4 +23,10 @@ public class MainPresenterImpl implements MainPresenter {
     public void replaceFragment(Fragment fragment) {
         mainView.replaceFragment(fragment);
     }
+
+    @Override
+    public void logout() {
+        mainView.getPreferences().edit().clear().commit();
+        mainView.relaunch();
+    }
 }

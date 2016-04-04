@@ -1,10 +1,12 @@
 package com.opensource.app.idare.presenter.impl;
 
+import android.content.SharedPreferences;
 import android.widget.EditText;
 
 import com.opensource.app.idare.R;
 import com.opensource.app.idare.presenter.presenters.RegisterPresenter;
 import com.opensource.app.idare.service.handlers.AlertDialogHandler;
+import com.opensource.app.idare.util.Utility;
 import com.opensource.app.idare.util.Utils;
 import com.opensource.app.idare.view.views.RegisterView;
 
@@ -50,5 +52,13 @@ public class RegisterPresenterImpl implements RegisterPresenter {
         } else {
             registerView.shakeView(etOtpCode);
         }
+    }
+
+    @Override
+    public void saveUserData() {
+        SharedPreferences.Editor editor = registerView.getPreferences().edit();
+        editor.putString(Utility.KEY_USER_MOBILE, "");
+        editor.putBoolean(Utility.KEY_NOT_FIRST_LAUNCH, true);
+        editor.commit();
     }
 }

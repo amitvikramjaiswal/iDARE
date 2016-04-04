@@ -1,5 +1,6 @@
 package com.opensource.app.idare.view.views;
 
+import android.content.SharedPreferences;
 import android.view.View;
 
 import com.opensource.app.idare.service.handlers.AlertDialogHandler;
@@ -59,6 +60,8 @@ public interface BaseView {
      * Closes the view.
      */
     void finish();
+
+    SharedPreferences getPreferences();
 
     /**
      * Checks if Google Play Services is available.

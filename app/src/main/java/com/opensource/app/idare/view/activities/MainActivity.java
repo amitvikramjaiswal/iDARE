@@ -1,5 +1,6 @@
 package com.opensource.app.idare.view.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -12,10 +13,15 @@ import android.widget.Button;
 import com.opensource.app.idare.R;
 import com.opensource.app.idare.presenter.impl.MainPresenterImpl;
 import com.opensource.app.idare.presenter.presenters.MainPresenter;
+import com.opensource.app.idare.service.handlers.AlertDialogHandler;
 import com.opensource.app.idare.util.Utility;
-import com.opensource.app.idare.util.log.Logger;
+import com.opensource.app.idare.view.fragments.AppTourFragment;
+import com.opensource.app.idare.view.fragments.CoreListFragment;
+import com.opensource.app.idare.view.fragments.DonateFragment;
+import com.opensource.app.idare.view.fragments.InviteToIDareFragment;
 import com.opensource.app.idare.view.fragments.NavigationDrawerFragment;
 import com.opensource.app.idare.view.fragments.PassiveProfileFragment;
+import com.opensource.app.idare.view.fragments.SettingsFragment;
 import com.opensource.app.idare.view.views.MainView;
 
 public class MainActivity extends BaseActivity implements MainView, NavigationDrawerFragment.NavigationDrawerCallbacks, View.OnClickListener {
@@ -62,22 +68,26 @@ public class MainActivity extends BaseActivity implements MainView, NavigationDr
         // update the main content by replacing fragments
         Fragment fragment = null;
         switch (position) {
-
             case 0:
                 fragment = new PassiveProfileFragment();
                 break;
             case 1:
+                fragment = new CoreListFragment();
                 break;
             case 2:
+                fragment = new InviteToIDareFragment();
                 break;
             case 3:
+                fragment = new AppTourFragment();
                 break;
             case 4:
+                fragment = new DonateFragment();
                 break;
             case 5:
+                fragment = new SettingsFragment();
                 break;
             case 6:
-                hideProgressDialog();
+                logout();
                 break;
             default:
                 break;
@@ -88,46 +98,26 @@ public class MainActivity extends BaseActivity implements MainView, NavigationDr
 
     }
 
-    //Method to replace the Fragment
-    public void replaceFragment(Fragment fragment) {
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        fragmentManager.beginTransaction()
-//                .replace(R.id.container, fragment)
-//                .commit();
-
-        hideKeyboard();
-        backStateName = fragment.getClass().getName();
-        try {
-            fragmentPopped = fragmentManager.popBackStackImmediate(backStateName, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-        } catch (IllegalStateException e) {
-            Logger.e(TAG, "CAN BE IGNORED", e);
-            fragmentPopped = false;
-        }
-
-
-        if (!fragmentPopped) {
-            getSupportFragmentManager().beginTransaction().add(R.id.container, fragment)
-                    // Add this transaction to the back stack
-                    .addToBackStack(backStateName).commitAllowingStateLoss();
-        } else {
-            getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment)
-                    // Add this transaction to the back stack
-                    .addToBackStack(backStateName).commitAllowingStateLoss();
-        }
-        fragmentManager.addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+    private void logout() {
+        showAlertDialog(getString(R.string.app_name), getString(R.string.logout_message), getString(R.string.btn_logout), getString(R.string.btn_cancel), new AlertDialogHandler() {
             @Override
-            public void onBackStackChanged() {
-                setTitleFromBackStackEntry();
+            public void onPositiveButtonClicked() {
+                mainPresenter.logout();
+            }
+
+            @Override
+            public void onNegativeButtonClicked() {
+
             }
         });
-
     }
 
-    public void setTitleFromBackStackEntry() {
-        if (fragmentManager.getBackStackEntryCount() > Utility.ZERO_ELEMENTS_IN_STACK) {
-            backStackEntry = fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount() - 1);
-            setTitle(backStackEntry.getName());
-        }
+    //Method to replace the Fragment
+    public void replaceFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.container, fragment)
+                .commit();
     }
 
     @Override
@@ -156,5 +146,13 @@ public class MainActivity extends BaseActivity implements MainView, NavigationDr
         alertDialog.setView(popupView);
         alertDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         alertDialog.show();
+    }
+
+    @Override
+    public void relaunch() {
+        finish();
+        Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 }

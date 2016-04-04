@@ -42,7 +42,6 @@
                 style="@style/btn_pink_background"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/idare_pink"
                 android:elevation="5dp"
                 android:text="Make Active"
                 android:textStyle="bold" />

@@ -41,8 +41,12 @@
             android:value="@string/google_map_api_key" />
 
         <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_places_api_key"/>
+
+        <meta-data
             android:name="io.fabric.ApiKey"
-            android:value="0aafd5bfbed26df2872829dd45e99042396caca9" />
+            android:value="@string/fabric_api_key" />
 
     </application>
 

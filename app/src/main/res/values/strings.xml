@@ -23,6 +23,4 @@
     <string name="logout_message">Are you sure you want to log out?</string>
     <string name="btn_logout">LOG OUT</string>
     <string name="google_map_api_key">AIzaSyDzp46HCRv-FqeIhjIJ6QpCWfP96CbZYaU</string>
-    <string name="google_places_api_key">AIzaSyAqmAhL41kb_P4_2p52dLJNmq6jqjxt4bQ</string>
-    <string name="fabric_api_key">0aafd5bfbed26df2872829dd45e99042396caca9</string>
 </resources>

@@ -7,6 +7,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.opensource.app.idare.R;
+import com.opensource.app.idare.service.handlers.NearBySafeHouseResponseHandler;
 
 /**
  * Created by ajaiswal on 4/4/2016.
@@ -28,5 +29,18 @@ public class NearBySafeHouseActivity extends FragmentActivity implements OnMapRe
     public void onMapReady(GoogleMap googleMap) {
         this.googleMap = googleMap;
         googleMap.setMyLocationEnabled(true);
+    }
+
+    class NearBySafeHouseHandler implements NearBySafeHouseResponseHandler {
+
+        @Override
+        public void onSuccess() {
+
+        }
+
+        @Override
+        public void onError() {
+
+        }
     }
 }

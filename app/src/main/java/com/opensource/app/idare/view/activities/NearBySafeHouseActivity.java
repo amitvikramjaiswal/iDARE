@@ -15,6 +15,7 @@ import com.opensource.app.idare.service.handlers.NearBySafeHouseResponseHandler;
 public class NearBySafeHouseActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap googleMap;
+    private boolean isMapReady;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,11 +24,17 @@ public class NearBySafeHouseActivity extends FragmentActivity implements OnMapRe
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        getNearBySafeHouses();
+    }
+
+    private void getNearBySafeHouses() {
+
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.googleMap = googleMap;
+        this.isMapReady = true;
         googleMap.setMyLocationEnabled(true);
     }
 

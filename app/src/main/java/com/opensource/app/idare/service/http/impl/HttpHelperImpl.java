@@ -1,6 +1,7 @@
 package com.opensource.app.idare.service.http.impl;
 
 import android.os.Handler;
+import android.os.Looper;
 import android.util.Base64;
 
 import com.opensource.app.idare.service.http.HttpHelper;
@@ -29,8 +30,20 @@ public class HttpHelperImpl implements HttpHelper {
 
     private static final String LOG_TAG = "HttpHelperImpl";
     private Handler mUiThreadHandler;
+    private static HttpHelper httpHelper;
 
-    @Inject
+    static {
+        httpHelper = new HttpHelperImpl();
+    }
+
+    private HttpHelperImpl() {
+        setHandler(new Handler(Looper.getMainLooper()));
+    }
+
+    public static HttpHelper getHttpHelper(){
+        return httpHelper;
+    }
+
     void setHandler(Handler handler) {
         mUiThreadHandler = handler;
     }

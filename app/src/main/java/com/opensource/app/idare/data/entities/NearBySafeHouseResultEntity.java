@@ -10,6 +10,17 @@ import com.google.gson.annotations.SerializedName;
  */
 public class NearBySafeHouseResultEntity implements Parcelable {
 
+    public static final Creator<NearBySafeHouseResultEntity> CREATOR = new Creator<NearBySafeHouseResultEntity>() {
+        @Override
+        public NearBySafeHouseResultEntity createFromParcel(Parcel in) {
+            return new NearBySafeHouseResultEntity(in);
+        }
+
+        @Override
+        public NearBySafeHouseResultEntity[] newArray(int size) {
+            return new NearBySafeHouseResultEntity[size];
+        }
+    };
     @SerializedName("geometry")
     private Geometry geometry;
     @SerializedName("name")
@@ -26,17 +37,21 @@ public class NearBySafeHouseResultEntity implements Parcelable {
         vicinity = in.readString();
     }
 
-    public static final Creator<NearBySafeHouseResultEntity> CREATOR = new Creator<NearBySafeHouseResultEntity>() {
-        @Override
-        public NearBySafeHouseResultEntity createFromParcel(Parcel in) {
-            return new NearBySafeHouseResultEntity(in);
-        }
+    public Geometry getGeometry() {
+        return geometry;
+    }
 
-        @Override
-        public NearBySafeHouseResultEntity[] newArray(int size) {
-            return new NearBySafeHouseResultEntity[size];
-        }
-    };
+    public String getName() {
+        return name;
+    }
+
+    public String getPlaceId() {
+        return placeId;
+    }
+
+    public String getVicinity() {
+        return vicinity;
+    }
 
     @Override
     public int describeContents() {

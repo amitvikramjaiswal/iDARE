@@ -10,13 +10,6 @@ import com.google.gson.annotations.SerializedName;
  */
 public class Geometry implements Parcelable {
 
-    @SerializedName("location")
-    private Location location;
-
-    protected Geometry(Parcel in) {
-        location = in.readParcelable(Location.class.getClassLoader());
-    }
-
     public static final Creator<Geometry> CREATOR = new Creator<Geometry>() {
         @Override
         public Geometry createFromParcel(Parcel in) {
@@ -28,6 +21,16 @@ public class Geometry implements Parcelable {
             return new Geometry[size];
         }
     };
+    @SerializedName("location")
+    private Location location;
+
+    protected Geometry(Parcel in) {
+        location = in.readParcelable(Location.class.getClassLoader());
+    }
+
+    public Location getLocation() {
+        return location;
+    }
 
     @Override
     public int describeContents() {

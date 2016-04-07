@@ -10,16 +10,6 @@ import com.google.gson.annotations.SerializedName;
  */
 public class Location implements Parcelable {
 
-    @SerializedName("lat")
-    private double latitude;
-    @SerializedName("lng")
-    private double longitude;
-
-    protected Location(Parcel in) {
-        latitude = in.readDouble();
-        longitude = in.readDouble();
-    }
-
     public static final Creator<Location> CREATOR = new Creator<Location>() {
         @Override
         public Location createFromParcel(Parcel in) {
@@ -31,6 +21,23 @@ public class Location implements Parcelable {
             return new Location[size];
         }
     };
+    @SerializedName("lat")
+    private double latitude;
+    @SerializedName("lng")
+    private double longitude;
+
+    protected Location(Parcel in) {
+        latitude = in.readDouble();
+        longitude = in.readDouble();
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
 
     @Override
     public int describeContents() {

@@ -23,4 +23,5 @@
     <string name="logout_message">Are you sure you want to log out?</string>
     <string name="btn_logout">LOG OUT</string>
     <string name="google_map_api_key">AIzaSyDzp46HCRv-FqeIhjIJ6QpCWfP96CbZYaU</string>
+    <string name="no_location_detected">No location detected. Make sure location is enabled on the device.</string>
 </resources>

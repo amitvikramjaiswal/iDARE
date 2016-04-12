@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * The logger interface allows logging from anywhere in the application through
- * a static interface. Note that {@link #addLogger(com.aerotek.android.app.util.log.Logger)} must be called
+ * a static interface. Note that {@link #addLogger(com.opensource.app.idare.util.log.Logger)} must be called
  * before logging has any effect.
  */
 public abstract class Logger {
@@ -86,7 +86,7 @@ public abstract class Logger {
     }
 
     /**
-     * Log a {@link com.aerotek.android.app.util.log.Logger.LogLevel#VERBOSE} message and exception.
+     * Log a {@link com.opensource.app.idare.util.log.Logger.LogLevel#VERBOSE} message and exception.
      * 
      * @param tag
      *            The log tag.
@@ -100,7 +100,7 @@ public abstract class Logger {
     }
 
     /**
-     * Log a {@link com.aerotek.android.app.util.log.Logger.LogLevel#VERBOSE} exception.
+     * Log a {@link com.opensource.app.idare.util.log.Logger.LogLevel#VERBOSE} exception.
      * 
      * @param tag
      *            The log tag.
@@ -112,7 +112,7 @@ public abstract class Logger {
     }
 
     /**
-     * Log a {@link com.aerotek.android.app.util.log.Logger.LogLevel#VERBOSE} message.
+     * Log a {@link com.opensource.app.idare.util.log.Logger.LogLevel#VERBOSE} message.
      * 
      * @param tag
      *            The log tag.
@@ -124,7 +124,7 @@ public abstract class Logger {
     }
 
     /**
-     * Log a {@link com.aerotek.android.app.util.log.Logger.LogLevel#DEBUG} message and exception.
+     * Log a {@link com.opensource.app.idare.util.log.Logger.LogLevel#DEBUG} message and exception.
      * 
      * @param tag
      *            The log tag.
@@ -138,7 +138,7 @@ public abstract class Logger {
     }
 
     /**
-     * Log a {@link com.aerotek.android.app.util.log.Logger.LogLevel#DEBUG} exception.
+     * Log a {@link com.opensource.app.idare.util.log.Logger.LogLevel#DEBUG} exception.
      * 
      * @param tag
      *            The log tag.
@@ -150,7 +150,7 @@ public abstract class Logger {
     }
 
     /**
-     * Log a {@link com.aerotek.android.app.util.log.Logger.LogLevel#DEBUG} message.
+     * Log a {@link com.opensource.app.idare.util.log.Logger.LogLevel#DEBUG} message.
      * 
      * @param tag
      *            The log tag.
@@ -162,7 +162,7 @@ public abstract class Logger {
     }
     
     /**
-     * Log a {@link com.aerotek.android.app.util.log.Logger.LogLevel#WARN} message and exception.
+     * Log a {@link com.opensource.app.idare.util.log.Logger.LogLevel#WARN} message and exception.
      * 
      * @param tag
      *            The log tag.
@@ -176,7 +176,7 @@ public abstract class Logger {
     }
 
     /**
-     * Log a {@link com.aerotek.android.app.util.log.Logger.LogLevel#WARN} exception.
+     * Log a {@link com.opensource.app.idare.util.log.Logger.LogLevel#WARN} exception.
      * 
      * @param tag
      *            The log tag.
@@ -188,7 +188,7 @@ public abstract class Logger {
     }
 
     /**
-     * Log a {@link com.aerotek.android.app.util.log.Logger.LogLevel#WARN} message.
+     * Log a {@link com.opensource.app.idare.util.log.Logger.LogLevel#WARN} message.
      * 
      * @param tag
      *            The log tag.
@@ -200,7 +200,7 @@ public abstract class Logger {
     }
 
     /**
-     * Log a {@link com.aerotek.android.app.util.log.Logger.LogLevel#ERROR} message and exception.
+     * Log a {@link com.opensource.app.idare.util.log.Logger.LogLevel#ERROR} message and exception.
      * 
      * @param tag
      *            The log tag.
@@ -214,7 +214,7 @@ public abstract class Logger {
     }
 
     /**
-     * Log a {@link com.aerotek.android.app.util.log.Logger.LogLevel#ERROR} exception.
+     * Log a {@link com.opensource.app.idare.util.log.Logger.LogLevel#ERROR} exception.
      * 
      * @param tag
      *            The log tag.
@@ -226,7 +226,7 @@ public abstract class Logger {
     }
 
     /**
-     * Log a {@link com.aerotek.android.app.util.log.Logger.LogLevel#ERROR} message.
+     * Log a {@link com.opensource.app.idare.util.log.Logger.LogLevel#ERROR} message.
      * 
      * @param tag
      *            The log tag.
@@ -238,8 +238,8 @@ public abstract class Logger {
     }
 
     /**
-     * Log a {@link com.aerotek.android.app.util.log.Logger.LogLevel#INFO} message and exception.
-     * 
+     * Log a {@link com.opensource.app.idare.util.log.Logger.LogLevel#INFO} message and exception.
+     *
      * @param tag
      *            The log tag.
      * @param message
@@ -252,7 +252,7 @@ public abstract class Logger {
     }
 
     /**
-     * Log a {@link com.aerotek.android.app.util.log.Logger.LogLevel#INFO} exception.
+     * Log a {@link com.opensource.app.idare.util.log.Logger.LogLevel#INFO} exception.
      * 
      * @param tag
      *            The log tag.
@@ -264,7 +264,7 @@ public abstract class Logger {
     }
 
     /**
-     * Log a {@link com.aerotek.android.app.util.log.Logger.LogLevel#INFO} message.
+     * Log a {@link com.opensource.app.idare.util.log.Logger.LogLevel#INFO} message.
      * 
      * @param tag
      *            The log tag.
@@ -276,7 +276,7 @@ public abstract class Logger {
     }
 
     /**
-     * Log a {@link com.aerotek.android.app.util.log.Logger.LogLevel#ASSERT} message and exception.
+     * Log a {@link com.opensource.app.idare.util.log.Logger.LogLevel#ASSERT} message and exception.
      * 
      * @param tag
      *            The log tag.
@@ -290,7 +290,7 @@ public abstract class Logger {
     }
 
     /**
-     * Log a {@link com.aerotek.android.app.util.log.Logger.LogLevel#ASSERT} exception.
+     * Log a {@link com.opensource.app.idare.util.log.Logger.LogLevel#ASSERT} exception.
      * 
      * @param tag
      *            The log tag.
@@ -302,7 +302,7 @@ public abstract class Logger {
     }
 
     /**
-     * Log a {@link com.aerotek.android.app.util.log.Logger.LogLevel#ASSERT} message.
+     * Log a {@link com.opensource.app.idare.util.log.Logger.LogLevel#ASSERT} message.
      * 
      * @param tag
      *            The log tag.
@@ -363,7 +363,7 @@ public abstract class Logger {
      *            The log tag.
      * @param message
      *            The log message.
-     * @param stacktrace
+     * @param th
      *            A throwable (if applicable)
      */
     abstract void log(LogLevel level, String tag, String message, Throwable th);

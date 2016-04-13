@@ -1,8 +1,10 @@
 package com.opensource.app.idare.view.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.text.SpannableString;
 import android.text.style.StyleSpan;
@@ -13,6 +15,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.opensource.app.idare.R;
+import com.opensource.app.idare.service.handlers.AlertDialogHandler;
+import com.opensource.app.idare.util.Utils;
 import com.opensource.app.idare.view.activities.MainActivity;
 
 /**
@@ -72,10 +76,29 @@ public class PassiveProfileFragment extends BaseFragment implements View.OnClick
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_make_active:
-                mMainActivity.replaceFragment(new ActiveProfileFragment());
+                onMakeActiveClicked();
                 break;
             default:
                 break;
+        }
+    }
+
+    private void onMakeActiveClicked() {
+        if (Utils.isLocationServicesEnabled(mContext)) {
+            mMainActivity.replaceFragment(new ActiveProfileFragment());
+        } else {
+            mMainActivity.showAlertDialog(null, "The active mode wants to access your location.", getString(R.string.btn_ok), getString(R.string.btn_cancel), new AlertDialogHandler() {
+                @Override
+                public void onPositiveButtonClicked() {
+                    Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                    startActivity(intent);
+                }
+
+                @Override
+                public void onNegativeButtonClicked() {
+
+                }
+            });
         }
     }
 }

@@ -122,9 +122,9 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
     public void showAlertDialog(String title, String message, String positiveButton, String negativeButton, final AlertDialogHandler alertDialogHandler) {
         AlertDialog.Builder myAlertDialog = new AlertDialog.Builder(this);
 
-        if (title != null) {
-            myAlertDialog.setTitle(title);
-        }
+//        if (title != null) {
+            myAlertDialog.setTitle(getString(R.string.app_name));
+//        }
 
         if (message != null) {
             myAlertDialog.setMessage(message);

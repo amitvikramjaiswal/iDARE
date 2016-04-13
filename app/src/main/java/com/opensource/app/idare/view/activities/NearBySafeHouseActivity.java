@@ -44,7 +44,7 @@ public class NearBySafeHouseActivity extends FragmentActivity implements OnMapRe
     protected final static String LOCATION_KEY = "location-key";
     protected final static String LAST_UPDATED_TIME_STRING_KEY = "last-updated-time-string-key";
     private static final String TAG = "NearBySafeHouseActivity";
-    private static final float SMALLEST_DISPLACEMENT = 500.0f;
+    private static final float SMALLEST_DISPLACEMENT = 250.0f;
 
     protected LocationRequest mLocationRequest;
     protected GoogleApiClient mGoogleApiClient;

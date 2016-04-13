@@ -1,5 +1,7 @@
 package com.opensource.app.idare.util;
 
+import android.content.Context;
+import android.location.LocationManager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
@@ -15,6 +17,11 @@ public class Utils {
      */
     public static boolean hasContent(String str) {
         return str != null && str.length() > 0;
+    }
+
+    public static boolean isLocationServicesEnabled(Context context) {
+        final LocationManager manager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        return manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
 
     public static void setListViewHeightBasedOnChildren(ListView listView) {

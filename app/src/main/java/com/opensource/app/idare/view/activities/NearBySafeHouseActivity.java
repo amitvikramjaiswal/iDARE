@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.widget.Toast;
@@ -27,6 +28,7 @@ import com.opensource.app.idare.data.entities.NearBySafeHouseListEntity;
 import com.opensource.app.idare.data.entities.NearBySafeHouseResultEntity;
 import com.opensource.app.idare.service.handlers.NearBySafeHouseResponseHandler;
 import com.opensource.app.idare.service.impl.ServiceFacadeImpl;
+import com.opensource.app.idare.util.Utility;
 import com.opensource.app.idare.util.log.Logger;
 
 import java.text.DateFormat;
@@ -37,7 +39,7 @@ import java.util.List;
 /**
  * Created by ajaiswal on 4/4/2016.
  */
-public class NearBySafeHouseActivity extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
+public class NearBySafeHouseActivity extends FragmentActivity implements OnMapReadyCallback, LocationListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     public static final long UPDATE_INTERVAL_IN_MILLISECONDS = 1000;
     public static final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS = UPDATE_INTERVAL_IN_MILLISECONDS / 2;
@@ -65,6 +67,9 @@ public class NearBySafeHouseActivity extends FragmentActivity implements OnMapRe
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         mLastUpdateTime = "";
+
+        mLastLocation = mCurrentLocation = getIntent().getExtras().getParcelable(Utility.KEY_LAST_LOCATION);
+
 
         // Update values using data stored in the Bundle.
         updateValuesFromBundle(savedInstanceState);
@@ -128,15 +133,6 @@ public class NearBySafeHouseActivity extends FragmentActivity implements OnMapRe
         }
     }
 
-    private synchronized void buildGoogleClientAPI() {
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .addApi(LocationServices.API)
-                .build();
-        createLocationRequest();
-    }
-
     private void getNearBySafeHouses() {
         ServiceFacadeImpl.getServiceFacade().getNearBySafeHouses(getString(R.string.google_map_api_key), myLocation, "2000", "shopping_mall|police|cafe", new NearBySafeHouseHandler());
     }
@@ -171,11 +167,36 @@ public class NearBySafeHouseActivity extends FragmentActivity implements OnMapRe
     }
 
     @Override
+    public void onLocationChanged(Location location) {
+        mLastLocation = mCurrentLocation;
+        mCurrentLocation = location;
+        mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
+        if (mLastLocation != null && mLastLocation.distanceTo(mCurrentLocation) > SMALLEST_DISPLACEMENT) {
+            getNearBySafeHouses();
+        }
+    }
+
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putParcelable(LOCATION_KEY, mCurrentLocation);
+        savedInstanceState.putString(LAST_UPDATED_TIME_STRING_KEY, mLastUpdateTime);
+        super.onSaveInstanceState(savedInstanceState);
+    }
+
+    private synchronized void buildGoogleClientAPI() {
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
+        createLocationRequest();
+    }
+
+    @Override
     public void onConnected(Bundle bundle) {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
-        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        mLastLocation = mCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         if (mLastLocation != null) {
             myLocation = String.format("%s,%s", mLastLocation.getLatitude(), mLastLocation.getLongitude());
         } else {
@@ -191,24 +212,8 @@ public class NearBySafeHouseActivity extends FragmentActivity implements OnMapRe
     }
 
     @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         Logger.i(TAG, "Connection failed: ConnectionResult.getErrorCode() = " + connectionResult.getErrorCode());
-    }
-
-    @Override
-    public void onLocationChanged(Location location) {
-        mLastLocation = mCurrentLocation;
-        mCurrentLocation = location;
-        mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
-        if (mLastLocation != null && mLastLocation.distanceTo(mCurrentLocation) > SMALLEST_DISPLACEMENT) {
-            getNearBySafeHouses();
-        }
-    }
-
-    public void onSaveInstanceState(Bundle savedInstanceState) {
-        savedInstanceState.putParcelable(LOCATION_KEY, mCurrentLocation);
-        savedInstanceState.putString(LAST_UPDATED_TIME_STRING_KEY, mLastUpdateTime);
-        super.onSaveInstanceState(savedInstanceState);
     }
 
     class NearBySafeHouseHandler implements NearBySafeHouseResponseHandler {

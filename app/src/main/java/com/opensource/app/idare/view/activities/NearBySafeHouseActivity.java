@@ -17,6 +17,7 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.LocationSource;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -69,6 +70,10 @@ public class NearBySafeHouseActivity extends FragmentActivity implements OnMapRe
         mLastUpdateTime = "";
 
         mLastLocation = mCurrentLocation = getIntent().getExtras().getParcelable(Utility.KEY_LAST_LOCATION);
+        if (mLastLocation != null) {
+            myLocation = String.format("%s,%s", mLastLocation.getLatitude(), mLastLocation.getLongitude());
+            getNearBySafeHouses();
+        }
 
 
         // Update values using data stored in the Bundle.
@@ -89,13 +94,13 @@ public class NearBySafeHouseActivity extends FragmentActivity implements OnMapRe
         }
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        // Stop location updates to save battery, but don't disconnect the GoogleApiClient object.
-        if (mGoogleApiClient.isConnected()) {
-            stopLocationUpdates();
-        }
+    private synchronized void buildGoogleClientAPI() {
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
+        createLocationRequest();
     }
 
     protected void createLocationRequest() {
@@ -104,6 +109,15 @@ public class NearBySafeHouseActivity extends FragmentActivity implements OnMapRe
         mLocationRequest.setFastestInterval(FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         mLocationRequest.setSmallestDisplacement(SMALLEST_DISPLACEMENT);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        // Stop location updates to save battery, but don't disconnect the GoogleApiClient object.
+        if (mGoogleApiClient.isConnected()) {
+            stopLocationUpdates();
+        }
     }
 
     protected void startLocationUpdates() {
@@ -182,15 +196,6 @@ public class NearBySafeHouseActivity extends FragmentActivity implements OnMapRe
         super.onSaveInstanceState(savedInstanceState);
     }
 
-    private synchronized void buildGoogleClientAPI() {
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .addApi(LocationServices.API)
-                .build();
-        createLocationRequest();
-    }
-
     @Override
     public void onConnected(Bundle bundle) {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -221,6 +226,7 @@ public class NearBySafeHouseActivity extends FragmentActivity implements OnMapRe
         @Override
         public void onSuccess(NearBySafeHouseListEntity nearBySafeHouses) {
             System.out.println("RESULT " + nearBySafeHouses.toString());
+            googleMap.clear();
             addMarkers(nearBySafeHouses);
         }
 

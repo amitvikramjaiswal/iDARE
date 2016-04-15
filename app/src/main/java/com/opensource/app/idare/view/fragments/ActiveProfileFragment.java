@@ -1,14 +1,10 @@
 package com.opensource.app.idare.view.fragments;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,19 +13,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationServices;
 import com.opensource.app.idare.R;
 import com.opensource.app.idare.util.Utility;
-import com.opensource.app.idare.util.log.Logger;
 import com.opensource.app.idare.view.activities.MainActivity;
 import com.opensource.app.idare.view.activities.NearBySafeHouseActivity;
 
 /**
  * Created by ajaiswal on 3/18/2016.
  */
-public class ActiveProfileFragment extends BaseFragment implements View.OnClickListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class ActiveProfileFragment extends BaseFragment implements View.OnClickListener {
 
     private static final String TAG = "ActiveProfileFragment";
     private MainActivity mMainActivity;
@@ -49,9 +42,13 @@ public class ActiveProfileFragment extends BaseFragment implements View.OnClickL
         mContext = mMainActivity.getApplicationContext();
         setHasOptionsMenu(true);
         mMainActivity.getSupportActionBar().setTitle(mMainActivity.getStringArray(R.array.arr_nav_titles)[0]);
-        buildGoogleClientAPI();
 
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
     }
 
     @Override
@@ -127,32 +124,5 @@ public class ActiveProfileFragment extends BaseFragment implements View.OnClickL
             default:
                 break;
         }
-    }
-
-    private synchronized void buildGoogleClientAPI() {
-        mGoogleApiClient = new GoogleApiClient.Builder(mContext)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .addApi(LocationServices.API)
-                .build();
-    }
-
-    @Override
-    public void onConnected(Bundle bundle) {
-        if (ActivityCompat.checkSelfPermission(mMainActivity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(mMainActivity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-    }
-
-    @Override
-    public void onConnectionSuspended(int i) {
-        Logger.i(TAG, "Connection suspended");
-        mGoogleApiClient.connect();
-    }
-
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Logger.i(TAG, "Connection failed: ConnectionResult.getErrorCode() = " + connectionResult.getErrorCode());
     }
 }

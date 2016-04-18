@@ -40,7 +40,7 @@ import java.util.List;
 /**
  * Created by ajaiswal on 4/4/2016.
  */
-public class NearBySafeHouseActivity extends FragmentActivity implements OnMapReadyCallback, LocationListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class NearBySafeHouseActivity extends FragmentActivity implements OnMapReadyCallback, LocationListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, GoogleMap.OnMyLocationButtonClickListener {
 
     public static final long UPDATE_INTERVAL_IN_MILLISECONDS = 1000;
     public static final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS = UPDATE_INTERVAL_IN_MILLISECONDS / 2;
@@ -68,13 +68,6 @@ public class NearBySafeHouseActivity extends FragmentActivity implements OnMapRe
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         mLastUpdateTime = "";
-
-        mLastLocation = mCurrentLocation = getIntent().getExtras().getParcelable(Utility.KEY_LAST_LOCATION);
-        if (mLastLocation != null) {
-            myLocation = String.format("%s,%s", mLastLocation.getLatitude(), mLastLocation.getLongitude());
-            getNearBySafeHouses();
-        }
-
 
         // Update values using data stored in the Bundle.
         updateValuesFromBundle(savedInstanceState);
@@ -158,6 +151,7 @@ public class NearBySafeHouseActivity extends FragmentActivity implements OnMapRe
             return;
         }
         googleMap.setMyLocationEnabled(true);
+        googleMap.setOnMyLocationButtonClickListener(this);
     }
 
     public void addMarkers(NearBySafeHouseListEntity nearBySafeHouses) {
@@ -219,6 +213,12 @@ public class NearBySafeHouseActivity extends FragmentActivity implements OnMapRe
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         Logger.i(TAG, "Connection failed: ConnectionResult.getErrorCode() = " + connectionResult.getErrorCode());
+    }
+
+    @Override
+    public boolean onMyLocationButtonClick() {
+        mGoogleApiClient.connect();
+        return true;
     }
 
     class NearBySafeHouseHandler implements NearBySafeHouseResponseHandler {

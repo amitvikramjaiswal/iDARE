@@ -24,4 +24,7 @@
     <string name="btn_logout">LOG OUT</string>
     <string name="google_map_api_key">AIzaSyDzp46HCRv-FqeIhjIJ6QpCWfP96CbZYaU</string>
     <string name="no_location_detected">No location detected. Make sure location is enabled on the device.</string>
+    <string name="name">Name*</string>
+    <string name="email">Email</string>
+    <string name="alternate_number">Alternate Number</string>
 </resources>

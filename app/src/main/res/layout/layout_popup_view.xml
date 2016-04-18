@@ -23,13 +23,13 @@
         style="@style/btn_make_passive"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_linear_layout_elements"
+        android:layout_marginTop="@dimen/margin_linear_layout_elements_register"
         android:backgroundTint="@color/idare_white" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_linear_layout_elements"
+        android:layout_marginTop="@dimen/margin_linear_layout_elements_register"
         android:text="@string/forgot_passcode" />
 
 </LinearLayout>

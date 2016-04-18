@@ -18,7 +18,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_linear_layout_elements"
+            android:layout_marginTop="@dimen/margin_linear_layout_elements_register"
             android:text="@string/welcome_to_idare"
             android:textAlignment="center"
             android:textColor="@color/idare_text_color_bold" />
@@ -26,7 +26,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_linear_layout_elements"
+            android:layout_marginTop="@dimen/margin_linear_layout_elements_register"
             android:text="@string/otp_text"
             android:textAlignment="center"
             android:textColor="@color/idare_text_color_bold" />
@@ -35,7 +35,7 @@
             android:id="@+id/et_phone_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_linear_layout_elements"
+            android:layout_marginTop="@dimen/margin_linear_layout_elements_register"
             android:hint="@string/phone_number"
             android:inputType="number"
             android:maxLength="10"
@@ -65,7 +65,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_linear_layout_elements"
+            android:layout_marginTop="@dimen/margin_linear_layout_elements_register"
             android:text="@string/welcome_to_idare"
             android:textAlignment="center"
             android:textColor="@color/idare_text_color_bold" />
@@ -73,7 +73,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_linear_layout_elements"
+            android:layout_marginTop="@dimen/margin_linear_layout_elements_register"
             android:text="@string/enter_otp_text"
             android:textAlignment="center"
             android:textColor="@color/idare_text_color_bold" />
@@ -84,7 +84,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:layout_marginTop="@dimen/margin_linear_layout_elements"
+            android:layout_marginTop="@dimen/margin_linear_layout_elements_register"
             android:cursorVisible="false"
             android:inputType="number"
             android:maxLength="6"

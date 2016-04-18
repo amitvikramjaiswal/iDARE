@@ -95,7 +95,6 @@ public class MainActivity extends BaseActivity implements MainView, NavigationDr
         if (fragment != null) {
             replaceFragment(fragment);
         }
-
     }
 
     private void logout() {

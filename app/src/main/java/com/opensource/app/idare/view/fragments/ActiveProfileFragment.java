@@ -2,7 +2,6 @@ package com.opensource.app.idare.view.fragments;
 
 import android.content.Context;
 import android.content.Intent;
-import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -13,9 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.opensource.app.idare.R;
-import com.opensource.app.idare.util.Utility;
 import com.opensource.app.idare.view.activities.MainActivity;
 import com.opensource.app.idare.view.activities.NearBySafeHouseActivity;
 
@@ -29,9 +26,6 @@ public class ActiveProfileFragment extends BaseFragment implements View.OnClickL
     private Context mContext;
     private Button btnAlert;
     private Button btnCallNearestPoliceStation;
-
-    private GoogleApiClient mGoogleApiClient;
-    private Location mLastLocation;
 
     @Nullable
     @Override
@@ -88,8 +82,7 @@ public class ActiveProfileFragment extends BaseFragment implements View.OnClickL
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_safe_house:
-                if (mLastLocation != null)
-                    showNearBySafeHouses();
+                showNearBySafeHouses();
                 break;
         }
         return true;
@@ -97,7 +90,6 @@ public class ActiveProfileFragment extends BaseFragment implements View.OnClickL
 
     private void showNearBySafeHouses() {
         Intent intent = new Intent(mMainActivity, NearBySafeHouseActivity.class);
-        intent.putExtra(Utility.KEY_LAST_LOCATION, mLastLocation);
         startActivity(intent);
     }
 

@@ -11,6 +11,6 @@ public interface RegisterPresenter {
 
     void onVerifyClick(EditText otp);
 
-    void saveUserData();
+    void saveUserData(String mobile);
     
 }

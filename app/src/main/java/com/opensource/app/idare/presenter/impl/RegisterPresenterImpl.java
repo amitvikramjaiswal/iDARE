@@ -3,7 +3,10 @@ package com.opensource.app.idare.presenter.impl;
 import android.content.SharedPreferences;
 import android.widget.EditText;
 
+import com.google.gson.Gson;
 import com.opensource.app.idare.R;
+import com.opensource.app.idare.application.IDareApp;
+import com.opensource.app.idare.data.entities.UserContext;
 import com.opensource.app.idare.presenter.presenters.RegisterPresenter;
 import com.opensource.app.idare.service.handlers.AlertDialogHandler;
 import com.opensource.app.idare.util.Utility;
@@ -55,9 +58,11 @@ public class RegisterPresenterImpl implements RegisterPresenter {
     }
 
     @Override
-    public void saveUserData() {
+    public void saveUserData(String mobile) {
         SharedPreferences.Editor editor = registerView.getPreferences().edit();
-        editor.putString(Utility.KEY_USER_MOBILE, "");
+        UserContext userContext = new UserContext();
+        userContext.setMobile(mobile);
+        IDareApp.setUserContext(userContext);
         editor.putBoolean(Utility.KEY_NOT_FIRST_LAUNCH, true);
         editor.commit();
     }

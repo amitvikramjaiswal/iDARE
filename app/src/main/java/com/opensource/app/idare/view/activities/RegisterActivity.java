@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.opensource.app.idare.R;
 import com.opensource.app.idare.presenter.impl.RegisterPresenterImpl;
 import com.opensource.app.idare.presenter.presenters.RegisterPresenter;
+import com.opensource.app.idare.util.Utility;
 import com.opensource.app.idare.view.views.RegisterView;
 
 /**
@@ -79,8 +80,9 @@ public class RegisterActivity extends BaseActivity implements RegisterView, View
     @Override
     public void onVerifyClick() {
         finish();
-        registerPresenter.saveUserData();
+        registerPresenter.saveUserData(etPhoneNumber.getText().toString());
         Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra(Utility.KEY_SHOW_EDIT_PROFILE, true);
         startActivity(intent);
     }
 

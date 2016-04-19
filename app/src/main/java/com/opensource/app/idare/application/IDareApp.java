@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.multidex.MultiDexApplication;
 
 import com.crashlytics.android.Crashlytics;
+import com.opensource.app.idare.data.entities.UserContext;
 import com.opensource.app.idare.util.log.Logger;
 
 import io.fabric.sdk.android.Fabric;
@@ -15,6 +16,15 @@ public class IDareApp extends MultiDexApplication {
 
     private static final String TAG = "IDareApp";
     private static Context context;
+    private static UserContext userContext;
+
+    public static UserContext getUserContext() {
+        return userContext;
+    }
+
+    public static void setUserContext(UserContext userContext) {
+        IDareApp.userContext = userContext;
+    }
 
     public static Context getContext() {
         return context;

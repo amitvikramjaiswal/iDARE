@@ -52,6 +52,10 @@ public class MainActivity extends BaseActivity implements MainView, NavigationDr
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
         mainPresenter = new MainPresenterImpl(this);
+        if (getIntent().hasExtra(Utility.KEY_SHOW_EDIT_PROFILE) && getIntent().getBooleanExtra(Utility.KEY_SHOW_EDIT_PROFILE, false)) {
+            Intent intent = new Intent(MainActivity.this, EditProfileActivity.class);
+            startActivity(intent);
+        }
     }
 
     public void addListeners() {

@@ -12,4 +12,6 @@ public class Utility {
     public static final String KEY_LAST_LOCATION = "KEY_LAST_LOCATION";
     public static final String KEY_USER_MOBILE = "KEY_USER_MOBILE";
     public static final String KEY_NOT_FIRST_LAUNCH = "KEY_NOT_FIRST_LAUNCH";
+    public static final String KEY_USER_CONTEXT = "KEY_USER_CONTEXT";
+    public static final String KEY_SHOW_EDIT_PROFILE = "KEY_SHOW_EDIT_PROFILE";
 }

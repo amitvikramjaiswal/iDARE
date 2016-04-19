@@ -27,4 +27,6 @@
     <string name="name">Name*</string>
     <string name="email">Email</string>
     <string name="alternate_number">Alternate Number</string>
+    <string name="save">Save</string>
+    <string name="make_active">Make Active</string>
 </resources>

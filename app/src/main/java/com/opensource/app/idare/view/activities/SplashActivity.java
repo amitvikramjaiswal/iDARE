@@ -5,7 +5,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
+import com.google.gson.Gson;
 import com.opensource.app.idare.R;
+import com.opensource.app.idare.application.IDareApp;
+import com.opensource.app.idare.data.entities.UserContext;
 import com.opensource.app.idare.util.Utility;
 
 /**
@@ -31,6 +34,7 @@ public class SplashActivity extends BaseActivity {
                 finish();
                 Intent i;
                 if (isNotFirstLaunch) {
+                    IDareApp.setUserContext(new Gson().fromJson(getPreferences().getString(Utility.KEY_USER_CONTEXT, null), UserContext.class));
                     i = new Intent(SplashActivity.this, MainActivity.class);
                 } else {
                     i = new Intent(SplashActivity.this, RegisterActivity.class);

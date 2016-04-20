@@ -54,8 +54,13 @@ public class PassiveProfileFragment extends BaseFragment implements View.OnClick
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        setValues();
         addListeners();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        setValues();
     }
 
     private void setValues() {

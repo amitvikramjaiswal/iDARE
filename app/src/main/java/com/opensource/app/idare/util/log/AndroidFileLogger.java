@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
 
-import com.google.inject.Inject;
 import com.opensource.app.idare.util.Utils;
 
 import java.io.File;
@@ -26,10 +25,8 @@ public class AndroidFileLogger extends Logger {
     /**
      * Create an Android logger.
      *
-     * @param application
-     *            The Application object.
+     * @param application The Application object.
      */
-    @Inject
     public AndroidFileLogger(Application application) {
         mApplication = application;
         mRollingLogFile = new RollingLogFile(new File(mApplication.getExternalFilesDir(null), DEBUG_LOG_FILE_NAME).getAbsolutePath());
@@ -39,8 +36,7 @@ public class AndroidFileLogger extends Logger {
     /**
      * Sets the output date format.
      *
-     * @param format
-     *            The output date format.
+     * @param format The output date format.
      */
     public void setDateFormatString(String format) {
         mDateFormat = new SimpleDateFormat(format);
@@ -59,8 +55,7 @@ public class AndroidFileLogger extends Logger {
     /**
      * Sets the log file size.
      *
-     * @param size
-     *            The maximum log file size in megabytes.
+     * @param size The maximum log file size in megabytes.
      */
     public void setLogFileSize(long size) {
         mRollingLogFile.setMaximumSize(size);

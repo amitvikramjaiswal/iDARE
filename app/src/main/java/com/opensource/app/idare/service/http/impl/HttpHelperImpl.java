@@ -21,8 +21,6 @@ import java.net.URL;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import javax.inject.Inject;
-
 /**
  * HttpHelper implementation.
  */
@@ -40,7 +38,7 @@ public class HttpHelperImpl implements HttpHelper {
         setHandler(new Handler(Looper.getMainLooper()));
     }
 
-    public static HttpHelper getHttpHelper(){
+    public static HttpHelper getHttpHelper() {
         return httpHelper;
     }
 
@@ -106,11 +104,9 @@ public class HttpHelperImpl implements HttpHelper {
 
     /**
      * Sets basic auth credentials on the request
-     * 
-     * @param request
-     *            The request.
-     * @param connection
-     *            The HTTP connection.
+     *
+     * @param request    The request.
+     * @param connection The HTTP connection.
      */
     private void setRequestCredentials(HttpHelperRequest request, HttpURLConnection connection) {
         String username = request.getBasicAuthUsername();
@@ -124,13 +120,10 @@ public class HttpHelperImpl implements HttpHelper {
     /**
      * Reads the response from the input or error stream and saves it to the
      * response object.
-     * 
-     * @param connection
-     *            The HTTP connection.
-     * @param response
-     *            The response object.
-     * @throws java.io.IOException
-     *             If an error occurs.
+     *
+     * @param connection The HTTP connection.
+     * @param response   The response object.
+     * @throws java.io.IOException If an error occurs.
      */
     void readResponse(HttpURLConnection connection, HttpHelperResponse response) throws IOException {
         InputStream inputStream = null;
@@ -172,12 +165,9 @@ public class HttpHelperImpl implements HttpHelper {
     /**
      * Writes data to the output stream of the request.
      *
-     * @param request
-     *            The request object.
-     * @param connection
-     *            The HTTP connection.
-     * @throws java.io.IOException
-     *             If an error occurs.
+     * @param request    The request object.
+     * @param connection The HTTP connection.
+     * @throws java.io.IOException If an error occurs.
      */
     void writeData(HttpHelperRequest request, HttpURLConnection connection) throws IOException {
         if (request.getContent() != null && request.getContent().length > 0) {
@@ -190,10 +180,8 @@ public class HttpHelperImpl implements HttpHelper {
     /**
      * Sets various options on the connection.
      *
-     * @param request
-     *            The request object.
-     * @param connection
-     *            The HTTP connection.
+     * @param request    The request object.
+     * @param connection The HTTP connection.
      */
     void setOptions(HttpHelperRequest request, HttpURLConnection connection) {
         connection.setInstanceFollowRedirects(request.isInstanceFollowsRedirects());
@@ -202,10 +190,8 @@ public class HttpHelperImpl implements HttpHelper {
     /**
      * Sets the timeouts on the connection.
      *
-     * @param request
-     *            The request object.
-     * @param connection
-     *            The HTTP connection.
+     * @param request    The request object.
+     * @param connection The HTTP connection.
      */
     void setTimeouts(HttpHelperRequest request, HttpURLConnection connection) {
         connection.setConnectTimeout(request.getConnectionTimeout());
@@ -215,10 +201,8 @@ public class HttpHelperImpl implements HttpHelper {
     /**
      * Sets the request headers on the connection.
      *
-     * @param request
-     *            The request object.
-     * @param connection
-     *            The HTTP connection.
+     * @param request    The request object.
+     * @param connection The HTTP connection.
      */
     void setRequestHeaders(HttpHelperRequest request, HttpURLConnection connection) {
         Map<String, String> headers = request.getAdditionalHeaders();
@@ -232,12 +216,9 @@ public class HttpHelperImpl implements HttpHelper {
     /**
      * Sets the request method on the connection.
      *
-     * @param request
-     *            The request object.
-     * @param connection
-     *            The HTTP connection.
-     * @throws java.net.ProtocolException
-     *             If an error occurs.
+     * @param request    The request object.
+     * @param connection The HTTP connection.
+     * @throws java.net.ProtocolException If an error occurs.
      */
     void setRequestMethod(HttpHelperRequest request, HttpURLConnection connection) throws ProtocolException {
         connection.setRequestMethod(request.getRequestMethod());

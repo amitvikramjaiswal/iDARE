@@ -29,4 +29,5 @@
     <string name="alternate_number">Alternate Number</string>
     <string name="save">Save</string>
     <string name="make_active">Make Active</string>
+    <string name="pick_image_intent_text">Select</string>
 </resources>

@@ -1,5 +1,7 @@
 package com.opensource.app.idare.view.activities;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
@@ -14,6 +16,7 @@ import com.opensource.app.idare.application.IDareApp;
 import com.opensource.app.idare.data.entities.UserContext;
 import com.opensource.app.idare.presenter.impl.EditProfilePresenterImpl;
 import com.opensource.app.idare.presenter.presenters.EditProfilePresenter;
+import com.opensource.app.idare.util.ImagePicker;
 import com.opensource.app.idare.view.views.EditProfileView;
 
 /**
@@ -62,8 +65,11 @@ public class EditProfileActivity extends BaseActivity implements EditProfileView
 
     @Override
     public void setListeners() {
+        ivUserProfile.setOnClickListener(this);
         btnSaveProfile.setOnClickListener(this);
         etName.addTextChangedListener(this);
+        etEmail.addTextChangedListener(this);
+        etAlternateNumber.addTextChangedListener(this);
     }
 
     @Override
@@ -72,16 +78,24 @@ public class EditProfileActivity extends BaseActivity implements EditProfileView
             case R.id.btn_save_profile:
                 onSaveBtnClick();
                 break;
+            case R.id.iv_user_profile:
+                onImageClick();
+                break;
             default:
                 break;
         }
     }
 
+    private void onImageClick() {
+        Intent intent = new Intent(EditProfileActivity.this, ProfilePicActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     public void onSaveBtnClick() {
-        String name = etName.getText().toString();
-        String email = etEmail.getText().toString();
-        String alternate = etAlternateNumber.getText().toString();
+        String name = etName.getText().toString().trim();
+        String email = etEmail.getText().toString().trim();
+        String alternate = etAlternateNumber.getText().toString().trim();
         if (userContext == null)
             userContext = new UserContext();
         userContext.setName(name);
@@ -92,10 +106,16 @@ public class EditProfileActivity extends BaseActivity implements EditProfileView
 
     private void checkFieldsForEmptyValues() {
         String strName = etName.getText().toString().trim();
+        String email = etEmail.getText().toString().trim();
+        String alternate = etAlternateNumber.getText().toString().trim();
         if (strName == null || strName.isEmpty()) {
             btnSaveProfile.setEnabled(false);
         } else {
-            btnSaveProfile.setEnabled(true);
+            if (IDareApp.getUserContext() != null && (strName.equalsIgnoreCase(IDareApp.getUserContext().getName()) && email != null && email.equalsIgnoreCase(IDareApp.getUserContext().getEmail()) && alternate != null && alternate.equalsIgnoreCase(IDareApp.getUserContext().getAlternateMobile()))) {
+                btnSaveProfile.setEnabled(false);
+            } else {
+                btnSaveProfile.setEnabled(true);
+            }
         }
     }
 

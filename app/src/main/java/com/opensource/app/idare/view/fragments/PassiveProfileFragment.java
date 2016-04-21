@@ -47,6 +47,7 @@ public class PassiveProfileFragment extends BaseFragment implements View.OnClick
         mContext = mMainActivity.getApplicationContext();
         setHasOptionsMenu(true);
         mMainActivity.getSupportActionBar().setTitle(mMainActivity.getStringArray(R.array.arr_nav_titles)[0]);
+        IDareApp.setIsActive(false);
 
         return view;
     }

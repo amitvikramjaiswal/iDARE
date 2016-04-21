@@ -26,6 +26,9 @@ import java.io.OutputStream;
 public class ProfilePicActivity extends BaseActivity implements ProfilePicView, View.OnClickListener {
 
     private static final String TAG = "ProfilePicActivity";
+    private static final String PROFILE_PIC_PNG = "profile_pic.png";
+    private static final int HAS_SAVED = 888;
+    private static final int HAS_NOT_SAVED = 777;
     private ProfilePicPresenter profilePicPresenter;
 
     private ImageView ivUserProfilePic;
@@ -34,7 +37,7 @@ public class ProfilePicActivity extends BaseActivity implements ProfilePicView, 
     protected void onBaseActivityCreate(Bundle savedInstanceState) {
         super.onBaseActivityCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_pic);
-
+        setTitle(R.string.profile_pic);
         profilePicPresenter = new ProfilePicPresenterImpl(this);
     }
 
@@ -47,6 +50,7 @@ public class ProfilePicActivity extends BaseActivity implements ProfilePicView, 
     public void setValues() {
         String uri = IDareApp.getUserContext().getFilePath();
         if (uri != null && !uri.isEmpty()) {
+            ivUserProfilePic.setImageBitmap(null);
             ivUserProfilePic.setImageURI(Uri.parse(uri));
         }
     }
@@ -75,17 +79,20 @@ public class ProfilePicActivity extends BaseActivity implements ProfilePicView, 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Bitmap bitmap = ImagePicker.getImageFromResult(this, resultCode, data);
-        if (bitmap == null)
+        if (bitmap == null) {
+            setResult(HAS_NOT_SAVED);
             return;
+        }
         File file = savePic(bitmap);
         if (file != null) {
             IDareApp.getUserContext().setFilePath(file.getPath());
             setValues();
+            setResult(HAS_SAVED);
         }
     }
 
     private File savePic(Bitmap bitmap) {
-        File file = new File(getCacheDir(), "profile_pic.png");
+        File file = new File(getCacheDir(), PROFILE_PIC_PNG);
         OutputStream outputStream = null;
         try {
             outputStream = new FileOutputStream(file);

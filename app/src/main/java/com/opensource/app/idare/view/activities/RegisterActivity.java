@@ -2,7 +2,9 @@ package com.opensource.app.idare.view.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -12,13 +14,15 @@ import com.opensource.app.idare.R;
 import com.opensource.app.idare.presenter.impl.RegisterPresenterImpl;
 import com.opensource.app.idare.presenter.presenters.RegisterPresenter;
 import com.opensource.app.idare.util.Utility;
+import com.opensource.app.idare.util.log.Logger;
 import com.opensource.app.idare.view.views.RegisterView;
 
 /**
  * Created by ajaiswal on 3/21/2016.
  */
-public class RegisterActivity extends BaseActivity implements RegisterView, View.OnClickListener {
+public class RegisterActivity extends BaseActivity implements RegisterView, View.OnClickListener, TextView.OnEditorActionListener {
 
+    private static final String TAG = "RegisterActivity";
     private Button btnVerify;
     private Button btnSendVerification;
     private EditText etPhoneNumber;
@@ -55,6 +59,8 @@ public class RegisterActivity extends BaseActivity implements RegisterView, View
     public void setListeners() {
         btnSendVerification.setOnClickListener(this);
         btnVerify.setOnClickListener(this);
+        etPhoneNumber.setOnEditorActionListener(this);
+        etOtpCode.setOnEditorActionListener(this);
     }
 
     @Override
@@ -87,4 +93,18 @@ public class RegisterActivity extends BaseActivity implements RegisterView, View
     }
 
 
+    @Override
+    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+        if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)) {
+            switch (v.getId()) {
+                case R.id.et_phone_number:
+                    onSendVerificationClick();
+                    break;
+                case R.id.et_otp_code:
+                    onVerifyClick();
+                    break;
+            }
+        }
+        return false;
+    }
 }

@@ -9,6 +9,6 @@
         android:id="@+id/iv_user_profile"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@mipmap/user_profile" />
+        android:src="@mipmap/female_avatar" />
 
 </LinearLayout>

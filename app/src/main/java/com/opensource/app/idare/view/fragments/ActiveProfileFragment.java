@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.opensource.app.idare.R;
+import com.opensource.app.idare.application.IDareApp;
 import com.opensource.app.idare.view.activities.MainActivity;
 import com.opensource.app.idare.view.activities.NearBySafeHouseActivity;
 
@@ -50,6 +51,7 @@ public class ActiveProfileFragment extends BaseFragment implements View.OnClickL
         super.onViewCreated(view, savedInstanceState);
         setValues();
         addListeners();
+        IDareApp.setIsActive(true);
     }
 
     private void setValues() {

@@ -15,4 +15,6 @@ public interface MainView extends BaseView {
     void showMakePassivePopUp();
 
     void relaunch();
+
+    void toggleMakePassiveButton();
 }

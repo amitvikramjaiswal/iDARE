@@ -155,6 +155,7 @@ public class NavigationDrawerFragment extends Fragment {
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
                 ((MainActivity)getActivity()).hideKeyboard();
+                ((MainActivity)getActivity()).toggleMakePassiveButton();
             }
         };
 

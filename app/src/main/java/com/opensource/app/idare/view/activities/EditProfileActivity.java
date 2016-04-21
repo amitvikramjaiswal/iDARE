@@ -1,30 +1,34 @@
 package com.opensource.app.idare.view.activities;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.opensource.app.idare.R;
 import com.opensource.app.idare.application.IDareApp;
 import com.opensource.app.idare.data.entities.UserContext;
 import com.opensource.app.idare.presenter.impl.EditProfilePresenterImpl;
 import com.opensource.app.idare.presenter.presenters.EditProfilePresenter;
-import com.opensource.app.idare.util.ImagePicker;
 import com.opensource.app.idare.view.views.EditProfileView;
 
 /**
  * Created by ajaiswal on 4/18/2016.
  */
-public class EditProfileActivity extends BaseActivity implements EditProfileView, View.OnClickListener, TextWatcher {
+public class EditProfileActivity extends BaseActivity implements EditProfileView, View.OnClickListener, TextWatcher, TextView.OnEditorActionListener {
 
     private static final String TAG = "EditProfileActivity";
+    private static final int SHOULD_SAVE = 999;
+    private static final int HAS_SAVED = 888;
+    private static final int HAS_NOT_SAVED = 777;
     private EditProfilePresenter editProfilePresenter;
 
     private ImageView ivUserProfile;
@@ -39,6 +43,7 @@ public class EditProfileActivity extends BaseActivity implements EditProfileView
     protected void onBaseActivityCreate(Bundle savedInstanceState) {
         super.onBaseActivityCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
+        setTitle(R.string.profile);
         userContext = IDareApp.getUserContext();
         editProfilePresenter = new EditProfilePresenterImpl(this);
     }
@@ -70,6 +75,7 @@ public class EditProfileActivity extends BaseActivity implements EditProfileView
         etName.addTextChangedListener(this);
         etEmail.addTextChangedListener(this);
         etAlternateNumber.addTextChangedListener(this);
+        etAlternateNumber.setOnEditorActionListener(this);
     }
 
     @Override
@@ -88,7 +94,29 @@ public class EditProfileActivity extends BaseActivity implements EditProfileView
 
     private void onImageClick() {
         Intent intent = new Intent(EditProfileActivity.this, ProfilePicActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, SHOULD_SAVE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case SHOULD_SAVE:
+                switch (resultCode) {
+                    case HAS_NOT_SAVED:
+                        break;
+                    case HAS_SAVED:
+                        refreshPic();
+                        break;
+                }
+                break;
+        }
+    }
+
+    private void refreshPic() {
+        ivUserProfile.setImageBitmap(null);
+        ivUserProfile.setImageURI(Uri.parse(IDareApp.getUserContext().getFilePath()));
+        editProfilePresenter.saveProfile();
     }
 
     @Override
@@ -102,6 +130,7 @@ public class EditProfileActivity extends BaseActivity implements EditProfileView
         userContext.setEmail(email);
         userContext.setAlternateMobile(alternate);
         editProfilePresenter.saveProfile();
+        btnSaveProfile.setEnabled(false);
     }
 
     private void checkFieldsForEmptyValues() {
@@ -132,5 +161,17 @@ public class EditProfileActivity extends BaseActivity implements EditProfileView
     @Override
     public void afterTextChanged(Editable s) {
         checkFieldsForEmptyValues();
+    }
+
+    @Override
+    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+        if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)) {
+            switch (v.getId()) {
+                case R.id.et_alternate_number:
+                    onSaveBtnClick();
+                    break;
+            }
+        }
+        return false;
     }
 }

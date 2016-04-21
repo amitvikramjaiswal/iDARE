@@ -17,6 +17,15 @@ public class IDareApp extends MultiDexApplication {
     private static final String TAG = "IDareApp";
     private static Context context;
     private static UserContext userContext;
+    private static boolean isActive;
+
+    public static boolean isActive() {
+        return isActive;
+    }
+
+    public static void setIsActive(boolean isActive) {
+        IDareApp.isActive = isActive;
+    }
 
     public static UserContext getUserContext() {
         return userContext;

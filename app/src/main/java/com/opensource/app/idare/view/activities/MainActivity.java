@@ -11,10 +11,12 @@ import android.view.WindowManager;
 import android.widget.Button;
 
 import com.opensource.app.idare.R;
+import com.opensource.app.idare.application.IDareApp;
 import com.opensource.app.idare.presenter.impl.MainPresenterImpl;
 import com.opensource.app.idare.presenter.presenters.MainPresenter;
 import com.opensource.app.idare.service.handlers.AlertDialogHandler;
 import com.opensource.app.idare.util.Utility;
+import com.opensource.app.idare.view.fragments.ActiveProfileFragment;
 import com.opensource.app.idare.view.fragments.AppTourFragment;
 import com.opensource.app.idare.view.fragments.CoreListFragment;
 import com.opensource.app.idare.view.fragments.DonateFragment;
@@ -67,13 +69,26 @@ public class MainActivity extends BaseActivity implements MainView, NavigationDr
     }
 
     @Override
+    public void toggleMakePassiveButton() {
+        if (IDareApp.isActive()) {
+            btnMakePassive.setEnabled(true);
+        } else {
+            btnMakePassive.setEnabled(false);
+        }
+    }
+
+    @Override
     public void onNavigationDrawerItemSelected(int position) {
         mTitle = mTitles[position];
         // update the main content by replacing fragments
         Fragment fragment = null;
         switch (position) {
             case 0:
-                fragment = new PassiveProfileFragment();
+                if (IDareApp.isActive()) {
+                    fragment = new ActiveProfileFragment();
+                } else {
+                    fragment = new PassiveProfileFragment();
+                }
                 break;
             case 1:
                 fragment = new CoreListFragment();

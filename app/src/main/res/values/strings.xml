@@ -30,6 +30,6 @@
     <string name="save">Save</string>
     <string name="make_active">Make Active</string>
     <string name="pick_image_intent_text">Select</string>
-    <string name="profile">PROFILE</string>
+    <string name="home">HOME</string>
     <string name="profile_pic">PROFILE PIC</string>
 </resources>

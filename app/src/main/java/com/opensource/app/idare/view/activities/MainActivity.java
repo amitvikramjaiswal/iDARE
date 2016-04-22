@@ -6,9 +6,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.opensource.app.idare.R;
 import com.opensource.app.idare.application.IDareApp;
@@ -26,7 +30,7 @@ import com.opensource.app.idare.view.fragments.PassiveProfileFragment;
 import com.opensource.app.idare.view.fragments.SettingsFragment;
 import com.opensource.app.idare.view.views.MainView;
 
-public class MainActivity extends BaseActivity implements MainView, NavigationDrawerFragment.NavigationDrawerCallbacks, View.OnClickListener {
+public class MainActivity extends BaseActivity implements MainView, NavigationDrawerFragment.NavigationDrawerCallbacks, View.OnClickListener, TextView.OnEditorActionListener {
 
     private static final String TAG = "MainActivity";
     MainPresenter mainPresenter;
@@ -39,6 +43,7 @@ public class MainActivity extends BaseActivity implements MainView, NavigationDr
     private FragmentManager.BackStackEntry backStackEntry;
     private FragmentManager fragmentManager;
 
+    private EditText etPasscode;
     private Button btnMakePassive;
 
     @Override
@@ -54,7 +59,11 @@ public class MainActivity extends BaseActivity implements MainView, NavigationDr
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
         mainPresenter = new MainPresenterImpl(this);
-        if (getIntent().hasExtra(Utility.KEY_SHOW_EDIT_PROFILE) && getIntent().getBooleanExtra(Utility.KEY_SHOW_EDIT_PROFILE, false)) {
+        if ((getIntent().hasExtra(Utility.KEY_SHOW_EDIT_PROFILE)
+                && getIntent().getBooleanExtra(Utility.KEY_SHOW_EDIT_PROFILE, false))
+                || IDareApp.getUserContext() == null
+                || IDareApp.getUserContext().getName() == null
+                || IDareApp.getUserContext().getName().isEmpty()) {
             Intent intent = new Intent(MainActivity.this, EditProfileActivity.class);
             startActivity(intent);
         }
@@ -145,10 +154,19 @@ public class MainActivity extends BaseActivity implements MainView, NavigationDr
                 showMakePassivePopUp();
                 break;
             case R.id.btn_make_passive_confirm:
-                if (alertDialog != null)
-                    alertDialog.dismiss();
-                mainPresenter.replaceFragment(new PassiveProfileFragment());
+                onMakePassiveConfirmClick();
                 break;
+        }
+    }
+
+    private void onMakePassiveConfirmClick() {
+        String passcode = etPasscode.getText().toString().trim();
+        if (passcode != null && passcode.equals("123456")) {
+            if (alertDialog != null)
+                alertDialog.dismiss();
+            mainPresenter.replaceFragment(new PassiveProfileFragment());
+        } else {
+            shakeView(etPasscode);
         }
     }
 
@@ -158,6 +176,8 @@ public class MainActivity extends BaseActivity implements MainView, NavigationDr
 
         View popupView = getLayoutInflater().inflate(R.layout.layout_popup_view, null);
         Button button = (Button) popupView.findViewById(R.id.btn_make_passive_confirm);
+        etPasscode = (EditText) popupView.findViewById(R.id.et_passcode);
+        etPasscode.setOnEditorActionListener(this);
         button.setOnClickListener(this);
 
         alertDialog = new AlertDialog.Builder(this).create();
@@ -172,5 +192,17 @@ public class MainActivity extends BaseActivity implements MainView, NavigationDr
         Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+        if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)) {
+            switch (v.getId()) {
+                case R.id.et_passcode:
+                    onMakePassiveConfirmClick();
+                    break;
+            }
+        }
+        return false;
     }
 }

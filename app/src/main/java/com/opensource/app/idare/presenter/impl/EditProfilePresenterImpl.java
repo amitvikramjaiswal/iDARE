@@ -26,6 +26,6 @@ public class EditProfilePresenterImpl implements EditProfilePresenter {
     public void saveProfile() {
         SharedPreferences.Editor editor = editProfileView.getPreferences().edit();
         editor.putString(Utility.KEY_USER_CONTEXT, new Gson().toJson(IDareApp.getUserContext()));
-        editor.commit();
+        editor.apply();
     }
 }

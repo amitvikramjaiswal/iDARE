@@ -3,7 +3,6 @@ package com.opensource.app.idare.view.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 
 import com.google.gson.Gson;
 import com.opensource.app.idare.R;
@@ -34,7 +33,9 @@ public class SplashActivity extends BaseActivity {
                 finish();
                 Intent i;
                 if (isNotFirstLaunch) {
-                    IDareApp.setUserContext(new Gson().fromJson(getPreferences().getString(Utility.KEY_USER_CONTEXT, null), UserContext.class));
+                    UserContext userContext = new Gson().fromJson(getPreferences().getString(Utility.KEY_USER_CONTEXT, null), UserContext.class);
+                    userContext = userContext == null ? new UserContext() : userContext;
+                    IDareApp.setUserContext(userContext);
                     i = new Intent(SplashActivity.this, MainActivity.class);
                 } else {
                     i = new Intent(SplashActivity.this, RegisterActivity.class);

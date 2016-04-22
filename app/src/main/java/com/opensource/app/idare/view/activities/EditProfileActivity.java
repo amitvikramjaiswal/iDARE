@@ -3,6 +3,7 @@ package com.opensource.app.idare.view.activities;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -32,6 +33,7 @@ public class EditProfileActivity extends BaseActivity implements EditProfileView
     private EditProfilePresenter editProfilePresenter;
 
     private ImageView ivUserProfile;
+    private TextInputLayout tilName;
     private EditText etName;
     private EditText etAlternateNumber;
     private EditText etEmail;
@@ -43,7 +45,7 @@ public class EditProfileActivity extends BaseActivity implements EditProfileView
     protected void onBaseActivityCreate(Bundle savedInstanceState) {
         super.onBaseActivityCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
-        setTitle(R.string.profile);
+        setTitle(R.string.home);
         userContext = IDareApp.getUserContext();
         editProfilePresenter = new EditProfilePresenterImpl(this);
     }
@@ -51,6 +53,7 @@ public class EditProfileActivity extends BaseActivity implements EditProfileView
     @Override
     public void findViews() {
         ivUserProfile = (ImageView) findViewById(R.id.iv_user_profile);
+        tilName = (TextInputLayout) findViewById(R.id.til_name);
         etName = (EditText) findViewById(R.id.et_name);
         etAlternateNumber = (EditText) findViewById(R.id.et_alternate_number);
         etEmail = (EditText) findViewById(R.id.et_email);
@@ -131,6 +134,7 @@ public class EditProfileActivity extends BaseActivity implements EditProfileView
         userContext.setAlternateMobile(alternate);
         editProfilePresenter.saveProfile();
         btnSaveProfile.setEnabled(false);
+        showToast("Profile Successfully Updated.");
     }
 
     private void checkFieldsForEmptyValues() {
@@ -173,5 +177,16 @@ public class EditProfileActivity extends BaseActivity implements EditProfileView
             }
         }
         return false;
+    }
+
+    @Override
+    public void onBackPressed() {
+        String name = etName.getText().toString().trim();
+        if (name != null && !name.isEmpty()) {
+            onSaveBtnClick();
+            super.onBackPressed();
+        } else {
+            shakeView(tilName);
+        }
     }
 }

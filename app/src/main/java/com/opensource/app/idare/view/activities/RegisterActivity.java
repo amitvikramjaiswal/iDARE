@@ -98,10 +98,10 @@ public class RegisterActivity extends BaseActivity implements RegisterView, View
         if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)) {
             switch (v.getId()) {
                 case R.id.et_phone_number:
-                    onSendVerificationClick();
+                    onClick(btnSendVerification);
                     break;
                 case R.id.et_otp_code:
-                    onVerifyClick();
+                    onClick(btnVerify);
                     break;
             }
         }

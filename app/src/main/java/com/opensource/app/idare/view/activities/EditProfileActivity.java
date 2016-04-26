@@ -45,7 +45,7 @@ public class EditProfileActivity extends BaseActivity implements EditProfileView
     protected void onBaseActivityCreate(Bundle savedInstanceState) {
         super.onBaseActivityCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
-        setTitle(R.string.home);
+        setTitle(R.string.profile);
         userContext = IDareApp.getUserContext();
         editProfilePresenter = new EditProfilePresenterImpl(this);
     }

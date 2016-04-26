@@ -2,7 +2,7 @@
 <resources>
 
     <array name="arr_nav_titles">
-        <item>PROFILE</item>
+        <item>HOME</item>
         <item>CORE LIST</item>
         <item>INVITE TO I-DARE</item>
         <item>APP TOUR</item>

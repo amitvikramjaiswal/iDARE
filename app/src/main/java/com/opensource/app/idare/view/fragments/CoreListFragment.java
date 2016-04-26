@@ -62,6 +62,34 @@ public class CoreListFragment extends BaseFragment implements View.OnClickListen
 
     }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        linearLayoutManager = new LinearLayoutManager(mMainActivity, LinearLayoutManager.VERTICAL, false);
+        addListeners();
+    }
+
+    private void addListeners() {
+        swipeRefreshLayout.setOnRefreshListener(this);
+        fabAddToCoreList.setOnClickListener(this);
+        rvCoreList.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if (rvCoreList.canScrollVertically(-1)) {
+                    swipeRefreshLayout.setEnabled(false);
+                } else {
+                    swipeRefreshLayout.setEnabled(true);
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        fetchCoreList();
+    }
+
     private List<CoreUserEntity> filter(List<CoreUserEntity> models, String query) {
         query = query.toLowerCase();
 
@@ -143,6 +171,14 @@ public class CoreListFragment extends BaseFragment implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.fab_add_to_core_list:
+                addToCoreList();
+                break;
+        }
+    }
+
+    private void addToCoreList() {
 
     }
 

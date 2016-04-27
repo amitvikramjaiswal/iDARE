@@ -1,6 +1,10 @@
 package com.opensource.app.idare.service.impl;
 
+import android.content.Context;
+
+import com.kinvey.android.callback.KinveyPingCallback;
 import com.opensource.app.idare.service.NearBySafeHouseService;
+import com.opensource.app.idare.service.PingService;
 import com.opensource.app.idare.service.ServiceFacade;
 import com.opensource.app.idare.service.handlers.NearBySafeHouseResponseHandler;
 import com.opensource.app.idare.service.http.HttpHelper;
@@ -15,6 +19,7 @@ import com.opensource.app.idare.service.http.impl.HttpHelperImpl;
 public class ServiceFacadeImpl implements ServiceFacade {
     private HttpHelper httpHelper;
     private NearBySafeHouseService nearBySafeHouseService;
+    private PingService pingService;
     private static ServiceFacade serviceFacade;
 
     static {
@@ -39,6 +44,12 @@ public class ServiceFacadeImpl implements ServiceFacade {
                 nearBySafeHouseService.parseResponse(response, responseHandler);
             }
         });
+    }
+
+    @Override
+    public void ping(Context context, KinveyPingCallback kinveyPingCallback) {
+        pingService = new PingServiceImpl(context);
+        pingService.ping(kinveyPingCallback);
     }
 
 }

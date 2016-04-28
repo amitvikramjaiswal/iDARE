@@ -23,9 +23,9 @@ public class KinveyServiceImpl implements KinveyService {
     }
 
     @Override
-    public void save(String pCollectionName, KinveyClientCallback<GenericJson> pCallback, Class pClass) {
+    public void save(GenericJson genericJson, String pCollectionName, KinveyClientCallback<GenericJson> pCallback, Class pClass) {
         AsyncAppData asyncAppData = client.appData(pCollectionName, pClass);
-        asyncAppData.save(asyncAppData, pCallback);
+        asyncAppData.save(genericJson, pCallback);
     }
 
     @Override

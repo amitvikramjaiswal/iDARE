@@ -41,7 +41,7 @@ public class RegisterActivity extends BaseActivity implements RegisterView, View
     }
 
     @Override
-    public BasePresenter getPresenter() {
+    public RegisterPresenter getPresenter() {
         return registerPresenter;
     }
 

@@ -16,5 +16,5 @@ public interface ServiceFacade {
 
     void ping(Context context, KinveyPingCallback kinveyPingCallback);
 
-    void save(Context pContext, String pCollectionName, KinveyClientCallback<GenericJson> pCallback, Class pClass);
+    void save(Context pContext, GenericJson pGenericJson, String pCollectionName, KinveyClientCallback<GenericJson> pCallback, Class pClass);
 }

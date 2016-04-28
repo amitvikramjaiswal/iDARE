@@ -10,7 +10,7 @@ import com.kinvey.java.core.KinveyClientCallback;
  */
 public interface KinveyService {
 
-    void save(String pCollectionName, KinveyClientCallback<GenericJson> pCallback, Class pClass);
+    void save(GenericJson genericJson, String pCollectionName, KinveyClientCallback<GenericJson> pCallback, Class pClass);
 
     void findById(String id, KinveyClientCallback<GenericJson> callback);
 

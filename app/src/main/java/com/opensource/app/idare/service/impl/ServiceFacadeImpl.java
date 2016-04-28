@@ -58,8 +58,8 @@ public class ServiceFacadeImpl implements ServiceFacade {
     }
 
     @Override
-    public void save(Context pContext, String pCollectionName, KinveyClientCallback<GenericJson> pCallback, Class pClass) {
+    public void save(Context pContext, GenericJson pGenericJson, String pCollectionName, KinveyClientCallback<GenericJson> pCallback, Class pClass) {
         kinveyService = kinveyService == null ? new KinveyServiceImpl(pContext) : kinveyService;
-        kinveyService.save(pCollectionName, pCallback, pClass);
+        kinveyService.save(pGenericJson, pCollectionName, pCallback, pClass);
     }
 }

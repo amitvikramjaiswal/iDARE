@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.kinvey.android.callback.KinveyPingCallback;
+import com.kinvey.java.core.KinveyClientCallback;
 import com.opensource.app.idare.R;
 import com.opensource.app.idare.data.entities.CoreUserEntity;
 import com.opensource.app.idare.util.Utility;
@@ -63,7 +64,7 @@ public class CoreListFragment extends BaseFragment implements View.OnClickListen
     }
 
     public void fetchCoreList() {
-        mMainActivity.getPresenter().getServiceFacade().ping(mMainActivity, new PingCallback());
+        mMainActivity.getPresenter().ping(new PingCallback());
     }
 
     @Override
@@ -183,7 +184,12 @@ public class CoreListFragment extends BaseFragment implements View.OnClickListen
     }
 
     private void addToCoreList() {
-
+        CoreUserEntity coreUserEntity = new CoreUserEntity();
+        coreUserEntity.setName("Amit Vikram Jaiswal");
+        coreUserEntity.setMobile("7204365344");
+        coreUserEntity.setEmail("amitvikramjaiswal@gmail.com");
+        coreUserEntity.setAlternate("9844092414");
+        mMainActivity.getPresenter().save(coreUserEntity, "core_list", new CoreListCallback(), CoreUserEntity.class);
     }
 
     @Override
@@ -211,6 +217,18 @@ public class CoreListFragment extends BaseFragment implements View.OnClickListen
         @Override
         public void onFailure(Throwable throwable) {
             Log.e(TAG, "ERROR");
+        }
+    }
+
+    private class CoreListCallback<CoreUserEntity> implements KinveyClientCallback {
+        @Override
+        public void onSuccess(Object o) {
+            Log.d(TAG, "SAVED");
+        }
+
+        @Override
+        public void onFailure(Throwable throwable) {
+            Log.e(TAG, "NOT_SAVED");
         }
     }
 }

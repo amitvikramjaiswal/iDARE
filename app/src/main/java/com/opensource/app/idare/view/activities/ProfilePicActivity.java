@@ -43,7 +43,7 @@ public class ProfilePicActivity extends BaseActivity implements ProfilePicView, 
     }
 
     @Override
-    public BasePresenter getPresenter() {
+    public ProfilePicPresenter getPresenter() {
         return profilePicPresenter;
     }
 

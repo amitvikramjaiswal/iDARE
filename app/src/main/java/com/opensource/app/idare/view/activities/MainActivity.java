@@ -74,7 +74,7 @@ public class MainActivity extends BaseActivity implements MainView, NavigationDr
     }
 
     @Override
-    public BasePresenter getPresenter() {
+    public MainPresenter getPresenter() {
         return mainPresenter;
     }
 

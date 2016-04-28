@@ -2,7 +2,10 @@ package com.opensource.app.idare.service.impl;
 
 import android.content.Context;
 
+import com.google.api.client.json.GenericJson;
 import com.kinvey.android.callback.KinveyPingCallback;
+import com.kinvey.java.core.KinveyClientCallback;
+import com.opensource.app.idare.service.KinveyService;
 import com.opensource.app.idare.service.NearBySafeHouseService;
 import com.opensource.app.idare.service.PingService;
 import com.opensource.app.idare.service.ServiceFacade;
@@ -17,14 +20,16 @@ import com.opensource.app.idare.service.http.impl.HttpHelperImpl;
  * Created by ajaiswal on 4/6/2016.
  */
 public class ServiceFacadeImpl implements ServiceFacade {
-    private HttpHelper httpHelper;
-    private NearBySafeHouseService nearBySafeHouseService;
-    private PingService pingService;
     private static ServiceFacade serviceFacade;
 
     static {
         serviceFacade = new ServiceFacadeImpl();
     }
+
+    private HttpHelper httpHelper;
+    private NearBySafeHouseService nearBySafeHouseService;
+    private PingService pingService;
+    private KinveyService kinveyService;
 
     private ServiceFacadeImpl() {
         httpHelper = HttpHelperImpl.getHttpHelper();
@@ -48,8 +53,13 @@ public class ServiceFacadeImpl implements ServiceFacade {
 
     @Override
     public void ping(Context context, KinveyPingCallback kinveyPingCallback) {
-        pingService = new PingServiceImpl(context);
+        pingService = pingService == null ? new PingServiceImpl(context) : pingService;
         pingService.ping(kinveyPingCallback);
     }
 
+    @Override
+    public void save(Context pContext, String pCollectionName, KinveyClientCallback<GenericJson> pCallback, Class pClass) {
+        kinveyService = kinveyService == null ? new KinveyServiceImpl(pContext) : kinveyService;
+        kinveyService.save(pCollectionName, pCallback, pClass);
+    }
 }

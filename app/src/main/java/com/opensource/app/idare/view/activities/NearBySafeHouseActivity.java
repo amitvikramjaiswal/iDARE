@@ -27,6 +27,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.opensource.app.idare.R;
 import com.opensource.app.idare.data.entities.NearBySafeHouseListEntity;
 import com.opensource.app.idare.data.entities.NearBySafeHouseResultEntity;
+import com.opensource.app.idare.presenter.presenters.BasePresenter;
 import com.opensource.app.idare.service.handlers.NearBySafeHouseResponseHandler;
 import com.opensource.app.idare.service.impl.ServiceFacadeImpl;
 import com.opensource.app.idare.util.Utility;
@@ -40,7 +41,7 @@ import java.util.List;
 /**
  * Created by ajaiswal on 4/4/2016.
  */
-public class NearBySafeHouseActivity extends FragmentActivity implements OnMapReadyCallback, LocationListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, GoogleMap.OnMyLocationButtonClickListener {
+public class NearBySafeHouseActivity extends BaseActivity implements OnMapReadyCallback, LocationListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, GoogleMap.OnMyLocationButtonClickListener {
 
     public static final long UPDATE_INTERVAL_IN_MILLISECONDS = 1000;
     public static final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS = UPDATE_INTERVAL_IN_MILLISECONDS / 2;
@@ -72,6 +73,11 @@ public class NearBySafeHouseActivity extends FragmentActivity implements OnMapRe
         // Update values using data stored in the Bundle.
         updateValuesFromBundle(savedInstanceState);
         buildGoogleClientAPI();
+    }
+
+    @Override
+    public BasePresenter getPresenter() {
+        return null;
     }
 
     private void updateValuesFromBundle(Bundle savedInstanceState) {

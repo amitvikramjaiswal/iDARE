@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.opensource.app.idare.R;
 import com.opensource.app.idare.presenter.impl.RegisterPresenterImpl;
+import com.opensource.app.idare.presenter.presenters.BasePresenter;
 import com.opensource.app.idare.presenter.presenters.RegisterPresenter;
 import com.opensource.app.idare.util.Utility;
 import com.opensource.app.idare.util.log.Logger;
@@ -37,6 +38,11 @@ public class RegisterActivity extends BaseActivity implements RegisterView, View
         super.onBaseActivityCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         registerPresenter = new RegisterPresenterImpl(this);
+    }
+
+    @Override
+    public BasePresenter getPresenter() {
+        return registerPresenter;
     }
 
     @Override

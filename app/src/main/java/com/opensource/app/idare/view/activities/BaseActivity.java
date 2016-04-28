@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.opensource.app.idare.R;
+import com.opensource.app.idare.presenter.presenters.BasePresenter;
 import com.opensource.app.idare.service.handlers.AlertDialogHandler;
 import com.opensource.app.idare.view.views.BaseView;
 
@@ -83,6 +84,8 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
     public String[] getStringArray(int arrayResourceId) {
         return getResources().getStringArray(arrayResourceId);
     }
+
+    public abstract BasePresenter getPresenter();
 
     @Override
     public boolean checkGooglePlayServices() {

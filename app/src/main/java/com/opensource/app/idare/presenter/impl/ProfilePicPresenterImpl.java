@@ -6,7 +6,7 @@ import com.opensource.app.idare.view.views.ProfilePicView;
 /**
  * Created by ajaiswal on 4/20/2016.
  */
-public class ProfilePicPresenterImpl implements ProfilePicPresenter {
+public class ProfilePicPresenterImpl extends BasePresenterImpl implements ProfilePicPresenter {
 
     private static final String TAG = "ProfilePicPresenterImpl";
     private ProfilePicView profilePicView;

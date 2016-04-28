@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import com.opensource.app.idare.R;
 import com.opensource.app.idare.application.IDareApp;
 import com.opensource.app.idare.presenter.impl.ProfilePicPresenterImpl;
+import com.opensource.app.idare.presenter.presenters.BasePresenter;
 import com.opensource.app.idare.presenter.presenters.ProfilePicPresenter;
 import com.opensource.app.idare.util.ImagePicker;
 import com.opensource.app.idare.view.views.ProfilePicView;
@@ -39,6 +40,11 @@ public class ProfilePicActivity extends BaseActivity implements ProfilePicView, 
         setContentView(R.layout.activity_profile_pic);
         setTitle(R.string.profile_pic);
         profilePicPresenter = new ProfilePicPresenterImpl(this);
+    }
+
+    @Override
+    public BasePresenter getPresenter() {
+        return profilePicPresenter;
     }
 
     @Override

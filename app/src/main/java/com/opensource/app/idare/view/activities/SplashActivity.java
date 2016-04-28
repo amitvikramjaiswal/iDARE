@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 import com.opensource.app.idare.R;
 import com.opensource.app.idare.application.IDareApp;
 import com.opensource.app.idare.data.entities.UserContext;
+import com.opensource.app.idare.presenter.presenters.BasePresenter;
 import com.opensource.app.idare.util.Utility;
 
 /**
@@ -21,6 +22,11 @@ public class SplashActivity extends BaseActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_splash);
         finishOnUiThread(getPreferences().getBoolean(Utility.KEY_NOT_FIRST_LAUNCH, false));
+    }
+
+    @Override
+    public BasePresenter getPresenter() {
+        return null;
     }
 
     public void finishOnUiThread(final boolean isNotFirstLaunch) {

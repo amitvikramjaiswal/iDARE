@@ -1,5 +1,6 @@
 package com.opensource.app.idare.view.views;
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 
 /**
@@ -17,4 +18,6 @@ public interface MainView extends BaseView {
     void relaunch();
 
     void toggleMakePassiveButton();
+
+    Context getContext();
 }

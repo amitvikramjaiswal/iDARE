@@ -1,5 +1,6 @@
 package com.opensource.app.idare.view.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import com.opensource.app.idare.R;
 import com.opensource.app.idare.application.IDareApp;
 import com.opensource.app.idare.presenter.impl.MainPresenterImpl;
+import com.opensource.app.idare.presenter.presenters.BasePresenter;
 import com.opensource.app.idare.presenter.presenters.MainPresenter;
 import com.opensource.app.idare.service.handlers.AlertDialogHandler;
 import com.opensource.app.idare.util.Utility;
@@ -33,7 +35,8 @@ import com.opensource.app.idare.view.views.MainView;
 public class MainActivity extends BaseActivity implements MainView, NavigationDrawerFragment.NavigationDrawerCallbacks, View.OnClickListener, TextView.OnEditorActionListener {
 
     private static final String TAG = "MainActivity";
-    MainPresenter mainPresenter;
+    private MainPresenter mainPresenter;
+    private Context mContext;
     private NavigationDrawerFragment mNavigationDrawerFragment;
     private CharSequence mTitle;
     private String[] mTitles;
@@ -51,6 +54,7 @@ public class MainActivity extends BaseActivity implements MainView, NavigationDr
         super.onBaseActivityCreate(savedInstanceState);
         mTitles = getStringArray(R.array.arr_nav_titles);
         fragmentManager = getSupportFragmentManager();
+        mContext = this.getApplicationContext();
         setContentView(R.layout.activity_main);
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
@@ -67,6 +71,15 @@ public class MainActivity extends BaseActivity implements MainView, NavigationDr
             Intent intent = new Intent(MainActivity.this, EditProfileActivity.class);
             startActivity(intent);
         }
+    }
+
+    @Override
+    public BasePresenter getPresenter() {
+        return mainPresenter;
+    }
+
+    public Context getContext() {
+        return mContext;
     }
 
     public void addListeners() {

@@ -8,6 +8,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,9 +17,11 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.kinvey.android.callback.KinveyPingCallback;
 import com.opensource.app.idare.R;
 import com.opensource.app.idare.data.entities.CoreUserEntity;
 import com.opensource.app.idare.util.Utility;
+import com.opensource.app.idare.util.log.Logger;
 import com.opensource.app.idare.view.activities.MainActivity;
 import com.opensource.app.idare.view.adapters.CoreListAdapter;
 
@@ -30,6 +33,7 @@ import java.util.List;
  */
 public class CoreListFragment extends BaseFragment implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener, RecyclerView.OnItemTouchListener {
 
+    private static final String TAG = "CoreListFragment";
     private MainActivity mMainActivity;
     private Context mContext;
 
@@ -59,7 +63,7 @@ public class CoreListFragment extends BaseFragment implements View.OnClickListen
     }
 
     public void fetchCoreList() {
-
+        mMainActivity.getPresenter().getServiceFacade().ping(mMainActivity, new PingCallback());
     }
 
     @Override
@@ -195,5 +199,18 @@ public class CoreListFragment extends BaseFragment implements View.OnClickListen
     @Override
     public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
 
+    }
+
+    private class PingCallback implements KinveyPingCallback {
+
+        @Override
+        public void onSuccess(Boolean aBoolean) {
+            Log.d(TAG, "SUCCESS");
+        }
+
+        @Override
+        public void onFailure(Throwable throwable) {
+            Log.e(TAG, "ERROR");
+        }
     }
 }

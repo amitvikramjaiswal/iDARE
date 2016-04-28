@@ -18,6 +18,7 @@ import com.opensource.app.idare.R;
 import com.opensource.app.idare.application.IDareApp;
 import com.opensource.app.idare.data.entities.UserContext;
 import com.opensource.app.idare.presenter.impl.EditProfilePresenterImpl;
+import com.opensource.app.idare.presenter.presenters.BasePresenter;
 import com.opensource.app.idare.presenter.presenters.EditProfilePresenter;
 import com.opensource.app.idare.view.views.EditProfileView;
 
@@ -48,6 +49,11 @@ public class EditProfileActivity extends BaseActivity implements EditProfileView
         setTitle(R.string.profile);
         userContext = IDareApp.getUserContext();
         editProfilePresenter = new EditProfilePresenterImpl(this);
+    }
+
+    @Override
+    public BasePresenter getPresenter() {
+        return editProfilePresenter;
     }
 
     @Override

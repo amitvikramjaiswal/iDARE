@@ -11,7 +11,7 @@ import com.opensource.app.idare.view.views.EditProfileView;
 /**
  * Created by ajaiswal on 4/18/2016.
  */
-public class EditProfilePresenterImpl implements EditProfilePresenter {
+public class EditProfilePresenterImpl extends BasePresenterImpl implements EditProfilePresenter {
 
     private EditProfileView editProfileView;
 

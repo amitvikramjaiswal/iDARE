@@ -31,6 +31,7 @@ public class RegisterPresenterImpl extends BasePresenterImpl implements Register
     public void onSendVerificationClick(EditText etPhoneNumber) {
         String phoneNumber = etPhoneNumber.getText().toString();
         if (Utils.hasContent(phoneNumber) && phoneNumber.length() == 10) {
+            registerView.hideKeyboard();
             registerView.showAlertDialog(registerView.getString(R.string.app_name), registerView.getString(R.string.verify_confirmation_message, phoneNumber), registerView.getString(R.string.btn_ok), registerView.getString(R.string.btn_edit), new AlertDialogHandler() {
                 @Override
                 public void onPositiveButtonClicked() {
@@ -51,6 +52,7 @@ public class RegisterPresenterImpl extends BasePresenterImpl implements Register
     public void onVerifyClick(EditText etOtpCode) {
         String otp = etOtpCode.getText().toString();
         if (Utils.hasContent(otp) && otp.equalsIgnoreCase("123456")) {
+            registerView.hideKeyboard();
             registerView.onVerifyClick();
         } else {
             registerView.shakeView(etOtpCode);

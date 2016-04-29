@@ -185,11 +185,13 @@ public class CoreListFragment extends BaseFragment implements View.OnClickListen
 
     private void addToCoreList() {
         CoreUserEntity coreUserEntity = new CoreUserEntity();
-        coreUserEntity.setName("Amit Vikram Jaiswal");
+//        coreUserEntity.setId("7204365344");
+        coreUserEntity.setName("Amit Jaiswal");
         coreUserEntity.setMobile("7204365344");
         coreUserEntity.setEmail("amitvikramjaiswal@gmail.com");
         coreUserEntity.setAlternate("9844092414");
-        mMainActivity.getPresenter().save(coreUserEntity, "core_list", new CoreListCallback(), CoreUserEntity.class);
+
+        mMainActivity.getPresenter().save(coreUserEntity, Utility.KINVEY_CORE_LIST, new CoreListCallback(), CoreUserEntity.class);
     }
 
     @Override

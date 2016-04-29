@@ -87,6 +87,7 @@ public class RegisterActivity extends BaseActivity implements RegisterView, View
     public void onSendVerificationClick() {
         llEnterNumber.setVisibility(View.GONE);
         llEnterOtp.setVisibility(View.VISIBLE);
+
     }
 
     @Override

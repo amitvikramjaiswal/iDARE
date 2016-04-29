@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import com.google.api.client.json.GenericJson;
 import com.kinvey.android.callback.KinveyPingCallback;
 import com.kinvey.java.core.KinveyClientCallback;
+import com.opensource.app.idare.data.entities.CoreUserEntity;
 
 /**
  * Created by ajaiswal on 3/15/2016.

@@ -5,6 +5,7 @@ import android.content.Context;
 import com.google.api.client.json.GenericJson;
 import com.kinvey.android.callback.KinveyPingCallback;
 import com.kinvey.java.core.KinveyClientCallback;
+import com.opensource.app.idare.data.entities.CoreUserEntity;
 import com.opensource.app.idare.service.handlers.NearBySafeHouseResponseHandler;
 
 /**

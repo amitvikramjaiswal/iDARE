@@ -9,19 +9,10 @@ import com.google.api.client.util.Key;
 /**
  * Created by ajaiswal on 4/26/2016.
  */
-public class CoreUserEntity extends GenericJson implements Parcelable {
+public class CoreUserEntity extends GenericJson {
 
-    public static final Creator<CoreUserEntity> CREATOR = new Creator<CoreUserEntity>() {
-        @Override
-        public CoreUserEntity createFromParcel(Parcel in) {
-            return new CoreUserEntity(in);
-        }
-
-        @Override
-        public CoreUserEntity[] newArray(int size) {
-            return new CoreUserEntity[size];
-        }
-    };
+    @Key("_id")
+    private String id;
     @Key("_name")
     private String name;
     @Key("_mobile")
@@ -35,11 +26,12 @@ public class CoreUserEntity extends GenericJson implements Parcelable {
 
     }
 
-    protected CoreUserEntity(Parcel in) {
-        name = in.readString();
-        mobile = in.readString();
-        email = in.readString();
-        alternate = in.readString();
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -74,16 +66,4 @@ public class CoreUserEntity extends GenericJson implements Parcelable {
         this.alternate = alternate;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(name);
-        dest.writeString(mobile);
-        dest.writeString(email);
-        dest.writeString(alternate);
-    }
 }

@@ -3,9 +3,9 @@ package com.opensource.app.idare.presenter.impl;
 import android.support.v4.app.Fragment;
 
 import com.google.api.client.json.GenericJson;
+import com.kinvey.android.callback.KinveyListCallback;
 import com.kinvey.android.callback.KinveyPingCallback;
 import com.kinvey.java.core.KinveyClientCallback;
-import com.opensource.app.idare.data.entities.CoreUserEntity;
 import com.opensource.app.idare.presenter.presenters.MainPresenter;
 import com.opensource.app.idare.view.views.MainView;
 
@@ -41,5 +41,10 @@ public class MainPresenterImpl extends BasePresenterImpl implements MainPresente
 
     public void save(GenericJson pGenericJson, String pCollection, KinveyClientCallback<GenericJson> pCallback, Class pClass) {
         getServiceFacade().save(mainView.getContext(), pGenericJson, pCollection, pCallback, pClass);
+    }
+
+    @Override
+    public void findAll(String pCollectionName, KinveyListCallback<GenericJson> callback, Class pClass) {
+        getServiceFacade().findAll(pCollectionName, callback, pClass, mainView.getContext());
     }
 }

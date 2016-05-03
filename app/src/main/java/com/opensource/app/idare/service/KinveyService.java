@@ -19,4 +19,5 @@ public interface KinveyService {
 
     void queryKinveyDB(Query query, KinveyListCallback<GenericJson> callback);
 
+    void findAll(String pCollectionName, KinveyListCallback<GenericJson> callback, Class pClass);
 }

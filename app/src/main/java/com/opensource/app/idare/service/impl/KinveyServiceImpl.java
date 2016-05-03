@@ -56,6 +56,11 @@ public class KinveyServiceImpl implements KinveyService {
 
     @Override
     public void queryKinveyDB(Query query, KinveyListCallback<GenericJson> callback) {
+    }
+
+    @Override
+    public void findAll(String pCollectionName,KinveyListCallback<GenericJson> callback , Class pClass) {
+        client.appData(pCollectionName, pClass).get(callback);
 
     }
 }

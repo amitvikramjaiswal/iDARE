@@ -3,6 +3,7 @@ package com.opensource.app.idare.service.impl;
 import android.content.Context;
 
 import com.google.api.client.json.GenericJson;
+import com.kinvey.android.callback.KinveyListCallback;
 import com.kinvey.android.callback.KinveyPingCallback;
 import com.kinvey.java.core.KinveyClientCallback;
 import com.opensource.app.idare.data.entities.CoreUserEntity;
@@ -62,5 +63,11 @@ public class ServiceFacadeImpl implements ServiceFacade {
     public void save(Context pContext, GenericJson pGenericJson, String pCollectionName, KinveyClientCallback<GenericJson> pCallback, Class pClass) {
         kinveyService = kinveyService == null ? new KinveyServiceImpl(pContext) : kinveyService;
         kinveyService.save(pGenericJson, pCollectionName, pCallback, pClass);
+    }
+
+    @Override
+    public void findAll(String pCollectionName, KinveyListCallback<GenericJson> callback, Class pClass, Context pContext) {
+        kinveyService = kinveyService == null ? new KinveyServiceImpl(pContext) : kinveyService;
+        kinveyService.findAll(pCollectionName, callback, pClass);
     }
 }

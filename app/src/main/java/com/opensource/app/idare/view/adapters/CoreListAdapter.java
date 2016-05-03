@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -16,6 +15,8 @@ import com.opensource.app.idare.view.activities.MainActivity;
 import com.opensource.app.idare.view.fragments.CoreListFragment;
 
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by ajaiswal on 4/26/2016.
@@ -45,7 +46,7 @@ public class CoreListAdapter extends RecyclerView.Adapter<CoreListAdapter.CardVi
     public void onBindViewHolder(CardViewHolder holder, int position) {
         final CoreUserEntity coreUserEntity = mArlCoreUsers.get(position);
 
-        holder.tvCoreUserName.setText("");
+        holder.tvCoreUserName.setText(coreUserEntity.getName());
         holder.cvUserRow.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -120,7 +121,7 @@ public class CoreListAdapter extends RecyclerView.Adapter<CoreListAdapter.CardVi
 
     public static class CardViewHolder extends RecyclerView.ViewHolder {
 
-        protected ImageView ivCoreUser;
+        protected CircleImageView ivCoreUser;
         protected TextView tvCoreUserName;
         protected CardView cvUserRow;
         protected RelativeLayout rlUserRow;
@@ -129,7 +130,7 @@ public class CoreListAdapter extends RecyclerView.Adapter<CoreListAdapter.CardVi
         public CardViewHolder(Context context, View view) {
             super(view);
             mContext = context;
-            ivCoreUser = (ImageView) view.findViewById(R.id.iv_core_user);
+            ivCoreUser = (CircleImageView) view.findViewById(R.id.iv_core_user);
             tvCoreUserName = (TextView) view.findViewById(R.id.tv_core_user_name);
             cvUserRow = (CardView) view;
             rlUserRow = (RelativeLayout) view.findViewById(R.id.rl_core_list_row);

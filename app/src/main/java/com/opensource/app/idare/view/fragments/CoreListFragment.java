@@ -17,12 +17,13 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.api.client.json.GenericJson;
+import com.kinvey.android.callback.KinveyListCallback;
 import com.kinvey.android.callback.KinveyPingCallback;
 import com.kinvey.java.core.KinveyClientCallback;
 import com.opensource.app.idare.R;
 import com.opensource.app.idare.data.entities.CoreUserEntity;
 import com.opensource.app.idare.util.Utility;
-import com.opensource.app.idare.util.log.Logger;
 import com.opensource.app.idare.view.activities.MainActivity;
 import com.opensource.app.idare.view.adapters.CoreListAdapter;
 
@@ -64,7 +65,7 @@ public class CoreListFragment extends BaseFragment implements View.OnClickListen
     }
 
     public void fetchCoreList() {
-        mMainActivity.getPresenter().ping(new PingCallback());
+        mMainActivity.getPresenter().findAll(Utility.KINVEY_CORE_LIST, new FindAllCallback<CoreUserEntity>(), CoreUserEntity.class);
     }
 
     @Override
@@ -147,7 +148,7 @@ public class CoreListFragment extends BaseFragment implements View.OnClickListen
             @Override
             public boolean onQueryTextChange(String newText) {
                 searchQuery = newText;
-                if (arlCoreUsers != null  && arlCoreUsers.size() > 0) {
+                if (arlCoreUsers != null && arlCoreUsers.size() > 0) {
                     final List<CoreUserEntity> filteredModelList = filter(arlCoreUsers, newText);
                     coreListAdapter.animateTo(filteredModelList);
                     rvCoreList.smoothScrollToPosition(0);
@@ -185,7 +186,6 @@ public class CoreListFragment extends BaseFragment implements View.OnClickListen
 
     private void addToCoreList() {
         CoreUserEntity coreUserEntity = new CoreUserEntity();
-//        coreUserEntity.setId("7204365344");
         coreUserEntity.setName("Amit Jaiswal");
         coreUserEntity.setMobile("7204365344");
         coreUserEntity.setEmail("amitvikramjaiswal@gmail.com");
@@ -231,6 +231,25 @@ public class CoreListFragment extends BaseFragment implements View.OnClickListen
         @Override
         public void onFailure(Throwable throwable) {
             Log.e(TAG, "NOT_SAVED");
+        }
+    }
+
+    private class FindAllCallback<T> implements KinveyListCallback<GenericJson> {
+        @Override
+        public void onSuccess(GenericJson[] genericJsons) {
+            Log.d(TAG, "FETCH SUCCESS");
+            arlCoreUsers = new ArrayList<>();
+            for (GenericJson genericJson : genericJsons) {
+                arlCoreUsers.add((CoreUserEntity) genericJson);
+            }
+            coreListAdapter = new CoreListAdapter(arlCoreUsers, mContext, mMainActivity, CoreListFragment.this);
+            rvCoreList.setLayoutManager(linearLayoutManager);
+            rvCoreList.setAdapter(coreListAdapter);
+        }
+
+        @Override
+        public void onFailure(Throwable throwable) {
+            Log.d(TAG, "FETCH ERROR");
         }
     }
 }

@@ -4,16 +4,17 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.google.api.client.json.GenericJson;
-import com.kinvey.android.AsyncAppData;
 import com.kinvey.android.Client;
 import com.kinvey.android.callback.KinveyListCallback;
 import com.kinvey.android.callback.KinveyUserCallback;
 import com.kinvey.java.Query;
 import com.kinvey.java.User;
 import com.kinvey.java.core.KinveyClientCallback;
-import com.opensource.app.idare.data.entities.CoreUserEntity;
+import com.kinvey.java.core.UploaderProgressListener;
 import com.opensource.app.idare.service.KinveyService;
 import com.opensource.app.idare.util.KinveyUtil;
+
+import java.io.File;
 
 /**
  * Created by ajaiswal on 4/28/2016.
@@ -59,8 +60,13 @@ public class KinveyServiceImpl implements KinveyService {
     }
 
     @Override
-    public void findAll(String pCollectionName,KinveyListCallback<GenericJson> callback , Class pClass) {
+    public void findAll(String pCollectionName, KinveyListCallback<GenericJson> callback, Class pClass) {
         client.appData(pCollectionName, pClass).get(callback);
 
+    }
+
+    @Override
+    public void uploadPic(File file, UploaderProgressListener progressListener) {
+        client.file().upload(file, progressListener);
     }
 }

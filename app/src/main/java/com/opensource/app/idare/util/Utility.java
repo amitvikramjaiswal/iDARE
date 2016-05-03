@@ -16,6 +16,13 @@ public class Utility {
     public static final String KEY_SHOW_EDIT_PROFILE = "KEY_SHOW_EDIT_PROFILE";
 
     public static final String KINVEY_CORE_LIST = "CoreList";
+    public static final String KINVEY_IDARE_USER = "IDareUser";
+
+    public static final String KINVEY_NAME = "name";
+    public static final String KINVEY_EMAIL = "email";
+    public static final String KINVEY_MOBILE = "mobile";
+    public static final String KINVEY_ALTERNATE = "alternate";
+    public static final String KINVEY_PROFILE_PIC = "profile_pic";
 
     public static final String HOME = "HOME";
     public static final String CORE_LIST = "CORE LIST";

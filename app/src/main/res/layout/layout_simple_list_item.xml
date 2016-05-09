@@ -29,6 +29,7 @@
                 android:layout_height="50dp"
                 android:layout_gravity="center_vertical"
                 android:scaleType="centerCrop"
+                android:elevation="5dp"
                 android:src="@mipmap/female_avatar" />
 
             <TextView

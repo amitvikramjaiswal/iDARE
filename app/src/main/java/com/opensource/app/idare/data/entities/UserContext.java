@@ -8,6 +8,7 @@ import android.os.Parcelable;
  */
 public class UserContext implements Parcelable {
 
+    private String id;
     private String name;
     private String email;
     private String mobile;
@@ -19,6 +20,7 @@ public class UserContext implements Parcelable {
     }
 
     protected UserContext(Parcel in) {
+        id = in.readString();
         name = in.readString();
         email = in.readString();
         mobile = in.readString();
@@ -26,17 +28,13 @@ public class UserContext implements Parcelable {
         filePath = in.readString();
     }
 
-    public static final Creator<UserContext> CREATOR = new Creator<UserContext>() {
-        @Override
-        public UserContext createFromParcel(Parcel in) {
-            return new UserContext(in);
-        }
+    public String getId() {
+        return id;
+    }
 
-        @Override
-        public UserContext[] newArray(int size) {
-            return new UserContext[size];
-        }
-    };
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -79,16 +77,29 @@ public class UserContext implements Parcelable {
     }
 
     @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
         dest.writeString(name);
         dest.writeString(email);
         dest.writeString(mobile);
         dest.writeString(alternateMobile);
         dest.writeString(filePath);
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<UserContext> CREATOR = new Creator<UserContext>() {
+        @Override
+        public UserContext createFromParcel(Parcel in) {
+            return new UserContext(in);
+        }
+
+        @Override
+        public UserContext[] newArray(int size) {
+            return new UserContext[size];
+        }
+    };
 }

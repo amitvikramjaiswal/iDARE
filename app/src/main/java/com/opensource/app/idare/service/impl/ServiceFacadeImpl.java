@@ -5,7 +5,9 @@ import android.content.Context;
 import com.google.api.client.json.GenericJson;
 import com.kinvey.android.callback.KinveyListCallback;
 import com.kinvey.android.callback.KinveyPingCallback;
+import com.kinvey.java.LinkedResources.LinkedGenericJson;
 import com.kinvey.java.core.KinveyClientCallback;
+import com.kinvey.java.core.UploaderProgressListener;
 import com.opensource.app.idare.data.entities.CoreUserEntity;
 import com.opensource.app.idare.service.KinveyService;
 import com.opensource.app.idare.service.NearBySafeHouseService;
@@ -17,6 +19,8 @@ import com.opensource.app.idare.service.http.HttpHelperRequest;
 import com.opensource.app.idare.service.http.HttpHelperResponse;
 import com.opensource.app.idare.service.http.HttpHelperResponseHandler;
 import com.opensource.app.idare.service.http.impl.HttpHelperImpl;
+
+import java.io.File;
 
 /**
  * Created by ajaiswal on 4/6/2016.
@@ -66,8 +70,20 @@ public class ServiceFacadeImpl implements ServiceFacade {
     }
 
     @Override
+    public void saveLinkedData(Context pContext, LinkedGenericJson genericJson, String pCollectionName, KinveyClientCallback<GenericJson> callback, UploaderProgressListener progressListener, Class pClass) {
+        kinveyService = kinveyService == null ? new KinveyServiceImpl(pContext) : kinveyService;
+        kinveyService.saveLinkedData(genericJson, pCollectionName, callback, progressListener, pClass);
+    }
+
+    @Override
     public void findAll(String pCollectionName, KinveyListCallback<GenericJson> callback, Class pClass, Context pContext) {
         kinveyService = kinveyService == null ? new KinveyServiceImpl(pContext) : kinveyService;
         kinveyService.findAll(pCollectionName, callback, pClass);
+    }
+
+    @Override
+    public void uploadPic(File file, UploaderProgressListener progressListener, Context pContext) {
+        kinveyService = kinveyService == null ? new KinveyServiceImpl(pContext) : kinveyService;
+        kinveyService.uploadPic(file, progressListener);
     }
 }

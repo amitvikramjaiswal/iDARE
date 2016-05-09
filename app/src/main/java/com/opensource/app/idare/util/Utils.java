@@ -1,11 +1,18 @@
 package com.opensource.app.idare.util;
 
 import android.content.Context;
+import android.content.res.AssetFileDescriptor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.LocationManager;
+import android.net.Uri;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+
+import java.io.FileNotFoundException;
 
 /**
  * Created by amitvikramjaiswal on 17/03/16.
@@ -47,6 +54,23 @@ public class Utils {
         params.height = totalHeight
                 + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
         listView.setLayoutParams(params);
+    }
+
+    public static Bitmap decodeBitmap(Context context, Uri theUri, int sampleSize) {
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = sampleSize;
+
+        AssetFileDescriptor fileDescriptor = null;
+        try {
+            fileDescriptor = context.getContentResolver().openAssetFileDescriptor(theUri, "r");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        Bitmap actuallyUsableBitmap = BitmapFactory.decodeFileDescriptor(
+                fileDescriptor.getFileDescriptor(), null, options);
+
+        return actuallyUsableBitmap;
     }
 
 }

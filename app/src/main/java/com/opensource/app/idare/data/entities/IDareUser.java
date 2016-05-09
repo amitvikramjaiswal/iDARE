@@ -9,6 +9,8 @@ import com.opensource.app.idare.util.Utility;
  */
 public class IDareUser extends LinkedGenericJson {
 
+    @Key(Utility.ID)
+    private String id;
     @Key(Utility.KINVEY_NAME)
     private String name;
     @Key(Utility.KINVEY_EMAIL)
@@ -20,6 +22,14 @@ public class IDareUser extends LinkedGenericJson {
 
     public IDareUser() {
         putFile(Utility.KINVEY_PROFILE_PIC);
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {

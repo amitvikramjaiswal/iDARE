@@ -7,6 +7,7 @@ import com.google.api.client.json.GenericJson;
 import com.kinvey.android.Client;
 import com.kinvey.android.callback.KinveyListCallback;
 import com.kinvey.android.callback.KinveyUserCallback;
+import com.kinvey.java.LinkedResources.LinkedGenericJson;
 import com.kinvey.java.Query;
 import com.kinvey.java.User;
 import com.kinvey.java.core.KinveyClientCallback;
@@ -43,6 +44,11 @@ public class KinveyServiceImpl implements KinveyService {
     @Override
     public void save(GenericJson genericJson, String pCollectionName, KinveyClientCallback<GenericJson> pCallback, Class pClass) {
         client.appData(pCollectionName, pClass).save(genericJson, pCallback);
+    }
+
+    @Override
+    public void saveLinkedData(LinkedGenericJson genericJson, String pCollectionName, KinveyClientCallback<GenericJson> callback, UploaderProgressListener progressListener, Class pClass) {
+        client.linkedData(pCollectionName, pClass).save(genericJson, callback, progressListener);
     }
 
     @Override

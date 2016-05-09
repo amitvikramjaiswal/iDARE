@@ -22,6 +22,8 @@ import com.opensource.app.idare.presenter.presenters.BasePresenter;
 import com.opensource.app.idare.presenter.presenters.EditProfilePresenter;
 import com.opensource.app.idare.view.views.EditProfileView;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 /**
  * Created by ajaiswal on 4/18/2016.
  */
@@ -33,7 +35,7 @@ public class EditProfileActivity extends BaseActivity implements EditProfileView
     private static final int HAS_NOT_SAVED = 777;
     private EditProfilePresenter editProfilePresenter;
 
-    private ImageView ivUserProfile;
+    private CircleImageView ivUserProfile;
     private TextInputLayout tilName;
     private EditText etName;
     private EditText etAlternateNumber;
@@ -58,7 +60,7 @@ public class EditProfileActivity extends BaseActivity implements EditProfileView
 
     @Override
     public void findViews() {
-        ivUserProfile = (ImageView) findViewById(R.id.iv_user_profile);
+        ivUserProfile = (CircleImageView) findViewById(R.id.iv_user_profile);
         tilName = (TextInputLayout) findViewById(R.id.til_name);
         etName = (EditText) findViewById(R.id.et_name);
         etAlternateNumber = (EditText) findViewById(R.id.et_alternate_number);
@@ -140,6 +142,7 @@ public class EditProfileActivity extends BaseActivity implements EditProfileView
         userContext.setAlternateMobile(alternate);
         editProfilePresenter.saveProfile();
         btnSaveProfile.setEnabled(false);
+
         showToast("Profile Successfully Updated.");
     }
 

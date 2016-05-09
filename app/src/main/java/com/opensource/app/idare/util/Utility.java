@@ -18,6 +18,7 @@ public class Utility {
     public static final String KINVEY_CORE_LIST = "CoreList";
     public static final String KINVEY_IDARE_USER = "IDareUser";
 
+    public static final String ID = "_id";
     public static final String KINVEY_NAME = "name";
     public static final String KINVEY_EMAIL = "email";
     public static final String KINVEY_MOBILE = "mobile";
